@@ -1,0 +1,50 @@
+{
+    "iron_short_sword": {
+        "name": "iron_shortsword",
+        "dname": "Iron Shortsword",
+        "damage": 2,
+        "price": 15,
+        "sellable": true,
+        "in_shop": true
+    },
+    "iron_longsword": {
+        "name": "iron_longsword",
+        "dname": "Iron Longsword",
+        "damage": 5,
+        "price": 30,
+        "sellable": true,
+        "in_shop": true
+    },
+    "dungeon_slayer": {
+        "name": "dungeon_slayer",
+        "dname": "Dungeon Slayer",
+        "damage": 7,
+        "price": 100,
+        "sellable": true,
+        "in_shop": false
+    },
+    "cross_bow": {
+        "name": "cross_bow",
+        "dname": "Crossbow",
+        "damage": 3,
+        "price": 15,
+        "sellable": true,
+        "in_shop": true
+    },
+    "dagger": {
+        "name": "dagger",
+        "dname": "Dagger",
+        "damage": 1,
+        "price": 8,
+        "sellable": true,
+        "in_shop": true
+    },
+    "bone_dagger": {
+        "name": "bone_dagger",
+        "dname": "Bone Dagger",
+        "damage": 1.5,
+        "price": 12,
+        "sellable": true,
+        "in_shop": false
+    }
+}

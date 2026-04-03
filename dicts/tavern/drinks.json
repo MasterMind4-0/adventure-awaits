@@ -1,0 +1,26 @@
+{
+    "rum": {
+        "name": "rum",
+        "dname": "Rum",
+        "drunk_effective": 0.7,
+        "price": 2,
+        "sellable": false,
+        "in_shop": false
+    },
+    "wine": {
+        "name": "wine",
+        "dname": "Wine",
+        "drunk_effective": 0.25,
+        "price": 3,
+        "sellable": false,
+        "in_shop": false
+    },
+    "beer": {
+        "name": "beer",
+        "dname": "Beer",
+        "drunk_effective": 0.6,
+        "price": 2,
+        "sellable": false,
+        "in_shop": false
+    }
+}

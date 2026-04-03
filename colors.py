@@ -1,0 +1,8 @@
+class colors:
+    TITLE = '\\033[1m'
+    DEV = '\033[96m'
+    VALUE_ITEM = '\033[92m'
+    GOLD = '\033[93m'
+    HEALTH = '\033[91m'
+    THOUGHTS = '\033[3m'
+    END = '\033[0m'

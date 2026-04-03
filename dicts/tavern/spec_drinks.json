@@ -1,0 +1,22 @@
+{
+    "dragonsblood": {
+        "name": "dragonsblood",
+        "dname": "Dragon's Blood",
+        "description": "This ale is dark and thick. It's a little bitter with a smokey after taste, an acquired taste for many. The bartender warns you that this drink will certainly leave you wasted.",
+        "drunk_effective": 0.85,
+        "exp": 0.02,
+        "price": 6,
+        "sellable": false,
+        "in_shop": false
+    },
+    "goblinvomit": {
+        "name": "goblinvomit",
+        "dname": "Goblin Vomit",
+        "description": "This dark green that reminds many of goblin vomit. It's surprising thin, for its name, but why many avoid it is because of its horrid bitter taste.",
+        "drunk_effective": 0.90,
+        "exp": 0.03,
+        "price": 5,
+        "sellable": false,
+        "in_shop": false
+    }
+}

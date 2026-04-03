@@ -1,0 +1,12 @@
+{
+    "thug": {
+        "display_name": "Thug",
+        "health": 10,
+        "weapon": "dagger",
+        "armor": "leather_armor",
+        "drops": {
+            "dagger": 0.50,
+            "leather_armor": 0.25
+        }
+    }
+}

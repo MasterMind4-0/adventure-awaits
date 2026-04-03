@@ -5,4 +5,5 @@ class colors:
     GOLD = '\033[93m'
     HEALTH = '\033[91m'
     THOUGHTS = '\033[3m'
+    NAME = '\033[3m'
     END = '\033[0m'

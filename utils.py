@@ -15,19 +15,6 @@ def loading_json_entities():
         except (FileNotFoundError, json.JSONDecodeError) as e:
             print(f'There was an error loading {file_path}:', e)
 
-def loading_var(clean: bool = False):
-    try:
-        if not clean:
-            with open("var/default_varable.json", 'r', encoding="utf-8") as f:
-                var = json.load(f)
-        else:
-            with open("var/running_varable.json", 'r', encoding="utf-8") as f:
-                var = json.load(f)
-
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        print(f'There was an error loading the running varables:', e)
-
-
 def wait():
     if config.dev_mode:
         pass

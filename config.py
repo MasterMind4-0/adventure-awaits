@@ -1,6 +1,6 @@
 
 
-entites = {}
+entities = {}
 
 # player
 player_stats = {

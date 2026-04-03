@@ -1,7 +1,7 @@
 {
     "rum": {
         "name": "rum",
-        "dname": "Rum",
+        "display_name": "Rum",
         "drunk_effective": 0.7,
         "price": 2,
         "sellable": false,
@@ -9,7 +9,7 @@
     },
     "wine": {
         "name": "wine",
-        "dname": "Wine",
+        "display_name": "Wine",
         "drunk_effective": 0.25,
         "price": 3,
         "sellable": false,
@@ -17,7 +17,7 @@
     },
     "beer": {
         "name": "beer",
-        "dname": "Beer",
+        "display_name": "Beer",
         "drunk_effective": 0.6,
         "price": 2,
         "sellable": false,

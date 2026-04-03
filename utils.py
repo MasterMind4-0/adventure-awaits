@@ -46,25 +46,3 @@ def talk(text: str, custom_wait: bool = False, wait_time: int = 2):
         wait_time = num_characters // 28
         
     time.sleep(wait_time)
-
-def displayinventory():
-    item_counts = {}
-    for item in config.inventory:
-        if item in item_counts:
-            item_counts[item] += 1
-        else:
-            item_counts[item] = 1
-
-    result = ""
-    for item, count in item_counts.items():
-        dname = item
-        for category, items in config.entities.items():
-            if item in items:
-                entity = config.entities[category].get(item, {})
-                dname = entity.get('display_name', item)
-                break
-        if count > 1:
-            result += f"            {dname} x{count}\n"
-        else:
-            result += f"            {dname}\n"
-    return result.strip()

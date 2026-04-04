@@ -1,11 +1,13 @@
 {
     "thug": {
+        "name": "thug",
         "display_name": "Thug",
         "health": 10,
         "weapon": "dagger",
         "armor": "leather_armor",
+        "base_flee_chance": 0.25,
         "drops": {
-            "dagger": 0.50,
+            "dagger": 0.5,
             "leather_armor": 0.25
         }
     }

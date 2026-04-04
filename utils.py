@@ -1,19 +1,7 @@
 import time
 import random
-import json
-import glob
-import os
 import config
-
-# Loading .json files
-def loading_json_entities():
-    for file_path in glob.glob('dicts/**/*.json', recursive=True):
-        try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                key = os.path.splitext(os.path.basename(file_path))[0]
-                config.entities[key] = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            print(f'There was an error loading {file_path}:', e)
+import colors
 
 def wait():
     if config.dev_mode:
@@ -33,3 +21,18 @@ def talk(text: str, custom_wait: bool = False, wait_time: int = 2):
         wait_time = num_characters // 28
         
     time.sleep(wait_time)
+
+def calculate_chance(chance: float, modifier = None):
+    # The chance you give, btw, is the chance of winning
+    random_value = random.random()
+    if modifier:
+        win_chance = chance - (config.player_stats[modifier] / 10)
+        config.player_stats[modifier] += random.uniform(0, 0.1)
+        if config.dev_mode:
+            print(f"{colors.DEV}Modified chance: {win_chance}\nCompared value: {random_value}\nNew {modifier} value: {config.player_stats[modifier]}{colors.END}")
+    else:
+        win_chance = chance
+    if random_value < win_chance:
+        return True
+    else:
+        return False

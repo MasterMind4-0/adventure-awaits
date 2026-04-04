@@ -1,5 +1,6 @@
 {
     "no_armor": {
+        "name": "no_armor",
         "display_name": "No Armor",
         "armor": 0,
         "price": 0,
@@ -7,12 +8,15 @@
         "in_shop": false
     },
     "natural_armor": {
+        "name": "natural_armor",
         "display_name": "Natural Armor",
         "armor": 0.1,
+        "price": 0,
         "sellable": false,
         "in_shop": false
     },
     "iron_armor": {
+        "name": "iron_armor",
         "display_name": "Iron Armor",
         "armor": 0.35,
         "price": 30,
@@ -20,6 +24,7 @@
         "in_shop": true
     },
     "plate_armor": {
+        "name": "plate_armor",
         "display_name": "Plate Armor",
         "armor": 0.5,
         "price": 100,
@@ -27,6 +32,7 @@
         "in_shop": true
     },
     "leather_armor": {
+        "name": "leather_armor",
         "display_name": "Leather Armor",
         "armor": 0.25,
         "price": 15,
@@ -34,6 +40,7 @@
         "in_shop": true
     },
     "hood": {
+        "name": "hood",
         "display_name": "Hood",
         "armor": 0.07,
         "price": 10,

@@ -2,7 +2,14 @@
     "shortsword": {
         "name": "shortsword",
         "display_name": "Shortsword",
-        "damage": 2,
+        "damage": {
+            "d4": 0,
+            "d6": 1,
+            "d10": 0,
+            "d12": 0,
+            "piercing": 0.04,
+            "add": 1
+        },
         "price": 15,
         "sellable": true,
         "in_shop": true
@@ -10,7 +17,14 @@
     "longsword": {
         "name": "longsword",
         "display_name": "Longsword",
-        "damage": 5,
+        "damage": {
+            "d4": 0,
+            "d6": 1,
+            "d10": 0,
+            "d12": 0,
+            "piercing": 0.08,
+            "add": 3
+        },
         "price": 30,
         "sellable": true,
         "in_shop": true
@@ -18,7 +32,14 @@
     "dungeon_slayer": {
         "name": "dungeon_slayer",
         "display_name": "Dungeon Slayer",
-        "damage": 7,
+        "damage": {
+            "d4": 0,
+            "d6": 0,
+            "d10": 0,
+            "d12": 1,
+            "piercing": 0.14,
+            "add": 2
+        },
         "price": 100,
         "sellable": true,
         "in_shop": false
@@ -26,7 +47,14 @@
     "crossbow": {
         "name": "crossbow",
         "display_name": "Crossbow",
-        "damage": 3,
+        "damage": {
+            "d4": 1,
+            "d6": 0,
+            "d10": 0,
+            "d12": 0,
+            "piercing": 0.14,
+            "add": 0
+        },
         "price": 15,
         "sellable": true,
         "in_shop": true
@@ -34,7 +62,14 @@
     "dagger": {
         "name": "dagger",
         "display_name": "Dagger",
-        "damage": 1,
+        "damage": {
+            "d4": 1,
+            "d6": 0,
+            "d10": 0,
+            "d12": 0,
+            "piercing": 0.08,
+            "add": 1
+        },
         "price": 8,
         "sellable": true,
         "in_shop": true
@@ -42,7 +77,14 @@
     "bone_dagger": {
         "name": "bone_dagger",
         "display_name": "Bone Dagger",
-        "damage": 1.5,
+        "damage": {
+            "d4": 1,
+            "d6": 0,
+            "d10": 0,
+            "d12": 0,
+            "piercing": 0.10,
+            "add": 2
+        },
         "price": 12,
         "sellable": true,
         "in_shop": false

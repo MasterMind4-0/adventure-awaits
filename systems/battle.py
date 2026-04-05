@@ -2,19 +2,21 @@ import colors
 import time
 import config
 import random
-from utils import talk
+from utils import talk, format_damage, death
 
 class battle:
     def __init__(self, preset: str, player_initiative: bool, prevent_item_drops: bool = False, prevent_coin_drop: bool = False):
         preset = preset.lower()
+        enemy_weapon = config.entities['enemies'][preset]['weapon']
+        enemy_armor = config.entities['enemies'][preset]['armor']
 
         self.player_initiative = player_initiative
         self.player_victory = False
 
         self.enemy_display_name = config.entities['enemies'][preset]['display_name']
         self.enemy_health = config.entities['enemies'][preset]['health']
-        self.enemy_weapon = config.entities['enemies'][preset]['weapon']
-        self.enemy_armor = config.entities['enemies'][preset]['armor']
+        self.enemy_weapon = config.entities['weapons'][enemy_weapon]
+        self.enemy_armor = config.entities['armors'][enemy_armor]
         self.enemy_base_flee_chance = config.entities['enemies'][preset]['base_flee_chance']
         if not prevent_item_drops:
             self.possible_drops = config.entities['enemies'][preset]['drops']     
@@ -29,7 +31,6 @@ class battle:
     def player_menu(self):
         while True:
             weapon_name = f'{colors.EQUITABLE}{config.player_weapon['display_name']}{colors.END}'
-            weapon_damage = config.player_weapon['damage']
 
             armor_name = f'{colors.EQUITABLE}{config.player_armor['display_name']}{colors.END}'
 
@@ -38,7 +39,7 @@ class battle:
 
             Health: {colors.HEALTH}{config.player_health}{colors.END}
 
-            Equiped Weapon: {weapon_name} [{weapon_damage}]
+            Equiped Weapon: {weapon_name} [{format_damage(config.player_weapon)}]
             Armor: {armor_name}
 
             1. Attack (1 turn)
@@ -50,6 +51,9 @@ class battle:
             if action in ['1', '2', '3', '4']:
                 return action
             talk('Invalid answer. Try again.', True)
+
+    def healing_menu(self):
+        pass
 
     def fight_start(self, custom_entry_phrase: str = "", lethal_fight: bool = True):
         self.lethal_fight = lethal_fight
@@ -67,12 +71,48 @@ class battle:
         talk(entry_phrase)
         self.fight()
 
-    def fight_end(self, player_victor: bool):
+    def fight_end(self, player_victor: bool, rewards_dropped: bool = True):
         if player_victor:
+            dropped_items = self.calculate_dropped_items()
             print(f'---~~~### {colors.TITLE}YOU WON!{colors.END} ###~~~---')
-            if self.gold_drop:
+            if self.gold_drop and rewards_dropped:
                 talk(f'You gained {self.gold_drop} coins')
-            talk(f'You looted the body and found {self.calculate_dropped_items()}')
+            if dropped_items and rewards_dropped:
+                talk(f'You looted the body and found {dropped_items}')
+        else:
+            if self.lethal_fight:
+                death(self.enemy_display_name)
+        return
+
+    def fight(self):
+        if self.player_initiative:
+            self.player_initiative = False
+            self.player_turn()
+        while self.enemy_health > 0 and config.player_health > 0:
+            self.enemy_turn()
+            self.player_turn()
+        self.fight_end(True)
+
+    def player_turn(self):
+        talk('\nYour turn!\n', True)
+        action = self.player_menu()
+        
+        match action:
+            case '1':
+                self.perform_attack(True)
+            case '2':
+                self.healing_menu()
+            case '4':
+                self.flee(True)
+        return
+
+    def enemy_turn(self):
+        talk('\nEnemy\'s turn!\n', True)
+        compared_value = random.random()
+        if compared_value < self.enemy_base_flee_chance and self.enemy_health <= 5:
+            self.flee(False)
+        self.perform_attack(False)
+        return
 
     def flee(self, player_fleeing: bool):
         if player_fleeing:
@@ -85,62 +125,75 @@ class battle:
         talk(f"Before {subject_fleeing} can even finish their sentence,")
 
         if self.calculate_flee(player_fleeing):
-            talk(f'{subject_fleeing} runs off, leaving nothing, but dust in the air.')
-            self.fight_end(True)
+            talk(f'{subject_fleeing} runs off, leaving nothing, but dust in the air.\n')
+            self.fight_end(True, False)
         else:
             if player_fleeing:
-                talk(f'{self.enemy_display_name} grabs you instantly and throws you to the ground.')
-                self.player_initiative = False
+                talk(f'{self.enemy_display_name} grabs you instantly and throws you to the ground.\n')
                 return
             else:
-                talk(f'You grab {subject_fleeing} by the throat and throw them to the ground.')
-                self.player_initiative = True
+                talk(f'You grab {subject_fleeing} by the throat and throw them to the ground.\n')
+                self.player_turn()
                 return
 
-    def fight(self):
-        if self.player_initiative:
-            self.player_initiative = False
-            self.player_turn()
-        while self.enemy_health > 0 or not self.player_victory:
-            if self.player_initiative:
-                self.player_initiative = False
-                self.player_turn()
-                time.sleep(2)
-            self.enemy_turn()
-            time.sleep(2)
-            self.player_turn()
-        self.fight_end(True)
-
-    def player_turn(self):
-        print('Your turn!')
-        action = self.player_menu()
-        
-        match action:
-            case '1':
-                self.calculate_hit(True)
-            case '2':
-                self.healing_menu()
-            case '4':
-                self.flee(True)
-
-    def enemy_turn(self):
-        print('ENEMY TURN')
-
     def perform_attack(self, player_attacking: bool):
-        if self.calculate_hit(player_attacking):
+        if player_attacking:
             talk(f'You attack with your {colors.EQUITABLE}{config.player_weapon['display_name']}{colors.END}')
+        else:
+            talk(f'{self.enemy_display_name} swings their weapon at you.', True, 1)
+        if self.calculate_hit(player_attacking):
+            if player_attacking:
+                self.enemy_health -= self.calculate_damage(True)
+                talk(f'You clobber {self.enemy_display_name}.', True, 1)
+                if config.dev_mode:
+                    print(f'{colors.DEV}Enemy health: {self.enemy_health}{colors.END}')
+            else:
+                config.player_health -= self.calculate_damage(False)
+                talk(f'{self.enemy_display_name}\'s weapon thuds into you.', True, 1)
+        else:
+            if player_attacking:
+                talk(f'...But you miss!', True, 1)
+            else:
+                talk(f'...But {self.enemy_display_name} missed!', True, 1)
+        return
+
+    def calculate_damage(self, player_attacking: bool):
+        damage = 0
+        if player_attacking:
+            rootdict = config.player_weapon['damage']
+        else:
+            rootdict = self.enemy_weapon['damage']
+
+        for key, amount in rootdict.items():
+            if not amount:
+                continue
+            if key == "add":
+                damage += amount
+
+            elif key.startswith("d"):
+                sides = int(key[1:])
+                for _ in range(amount):
+                    roll_result = random.randint(1, sides)
+                    if config.dev_mode:
+                        print(f'{colors.DEV}Roll result: {roll_result}{colors.END}')
+                    damage += roll_result
+        return damage
 
     def calculate_hit(self, player_attacking: bool):
         compared_value = random.random()
-        base_hit_chance = .75
+        base_hit_chance = 0.65
         if player_attacking:
-            armor = self.enemy_armor
+            armor = self.enemy_armor['armor']
+            piercing = config.player_weapon['damage']['piercing']
         else:
-            armor = config.player_armor['armor']
+            armor = config.player_armor['armor'] + config.player_stats['dexterity']
+            piercing = self.enemy_weapon['damage']['piercing']
+        effective_armor = armor * (1 - piercing)
 
-        hit_chance = base_hit_chance - armor
+        hit_chance = base_hit_chance * (1 - effective_armor)
+        hit_chance = max(0.05, min(0.95, hit_chance))
         if config.dev_mode:
-            print(f"{colors.DEV}Hit chance: {hit_chance}\nArmor: {armor}\nBase hit chance: {base_hit_chance}\nCompared value {compared_value}\nHit chance {hit_chance}\nWould hit? {compared_value < hit_chance} < {colors.END}")
+            print(f"{colors.DEV}Hit chance: {hit_chance}\nArmor: {armor}\nBase hit chance: {base_hit_chance}\nCompared value {compared_value}\nHit chance {hit_chance}\nWould hit? {compared_value < hit_chance}{colors.END}")
         return compared_value < hit_chance
 
     def calculate_dropped_items(self):
@@ -159,14 +212,12 @@ class battle:
         else:
             return ''                
 
-    def healing_menu(self):
-        pass
-
     def calculate_flee(self, player_fleeing: bool):
+        compared_value = random.random()  
         if player_fleeing:
             flee_chance = (config.player_health / 40) + config.player_stats['dexterity']
-            compared_value = random.random()
-            return compared_value < flee_chance
         else:
-            compared_value = random.uniform(0, 1)
-            return compared_value < self.enemy_base_flee_chance
+            flee_chance = (self.enemy_health / 40) - config.player_stats['dexterity']
+        if config.dev_mode:
+            print(f'{colors.DEV}Flee chance: {flee_chance}\nCompared value: {compared_value}{colors.END}')
+        return compared_value < flee_chance

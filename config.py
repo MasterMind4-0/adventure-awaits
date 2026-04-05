@@ -29,4 +29,4 @@ inventory = [
     "greatest_health_potion"
 ]
 player_weapon = entities['weapons']['longsword']
-player_armor = entities['armors']['iron_armor']
+player_armor = entities['armors']['plate_armor']

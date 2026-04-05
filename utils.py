@@ -36,3 +36,29 @@ def calculate_chance(chance: float, modifier = None):
         return True
     else:
         return False
+
+def format_damage(weapon: dict):
+    parts = []
+
+    for die, amount in weapon['damage'].items():
+        if not amount:
+            continue
+
+        if die.startswith("d"):
+            if amount == 1:
+                parts.append(die)
+            else:
+                parts.append(f"{amount}{die}")
+        elif die == "add":
+            parts.append(str(amount))
+    if not parts:
+        return "0"
+    return " + ".join(parts)
+
+def death(death_by: str = ""):
+    if death_by:
+        by = f" BY {death_by.upper()}"
+    else:
+        by = ""
+    print(f"---~~~### {colors.HEALTH}{colors.TITLE}YOU DIED{by}{colors.END} ###~~~---")
+    exit()

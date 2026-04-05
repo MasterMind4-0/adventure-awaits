@@ -4,11 +4,11 @@
         "display_name": "Thug",
         "health": 10,
         "weapon": "dagger",
-        "armor": "leather_armor",
+        "armor": "hood",
         "base_flee_chance": 0.25,
         "drops": {
             "dagger": 0.5,
-            "leather_armor": 0.25
+            "hood": 0.25
         }
     }
 }

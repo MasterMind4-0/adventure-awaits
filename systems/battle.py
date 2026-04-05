@@ -82,19 +82,27 @@ class battle:
         else:
             if self.lethal_fight:
                 death(self.enemy_display_name)
+            else:
+                talk(f'{self.enemy_display_name}: Pff. Not worth my time.')
+                talk(f'You lived.')
         return
 
     def fight(self):
         if self.player_initiative:
             self.player_initiative = False
             self.player_turn()
-        while self.enemy_health > 0 and config.player_health > 0:
+        while self.enemy_health >= 0 and config.player_health >= 0:
             self.enemy_turn()
+            if config.player_health <= 0:
+                self.fight_end(False)
+                break
             self.player_turn()
-        self.fight_end(True)
+            if self.enemy_health <= 0:
+                self.fight_end(True)
+                break
 
     def player_turn(self):
-        talk('\nYour turn!\n', True)
+        talk('\nYour turn!\n', True, 1)
         action = self.player_menu()
         
         match action:
@@ -107,7 +115,7 @@ class battle:
         return
 
     def enemy_turn(self):
-        talk('\nEnemy\'s turn!\n', True)
+        talk('\nEnemy\'s turn!\n', True, 1)
         compared_value = random.random()
         if compared_value < self.enemy_base_flee_chance and self.enemy_health <= 5:
             self.flee(False)

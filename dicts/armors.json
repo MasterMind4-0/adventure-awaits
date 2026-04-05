@@ -10,7 +10,7 @@
     "natural_armor": {
         "name": "natural_armor",
         "display_name": "Natural Armor",
-        "armor": 0.1,
+        "armor": 0.10,
         "price": 0,
         "sellable": false,
         "in_shop": false
@@ -18,7 +18,7 @@
     "iron_armor": {
         "name": "iron_armor",
         "display_name": "Iron Armor",
-        "armor": 0.35,
+        "armor": 0.20,
         "price": 30,
         "sellable": true,
         "in_shop": true
@@ -26,7 +26,7 @@
     "plate_armor": {
         "name": "plate_armor",
         "display_name": "Plate Armor",
-        "armor": 0.5,
+        "armor": 0.30,
         "price": 100,
         "sellable": true,
         "in_shop": true
@@ -34,7 +34,7 @@
     "leather_armor": {
         "name": "leather_armor",
         "display_name": "Leather Armor",
-        "armor": 0.25,
+        "armor": 0.15,
         "price": 15,
         "sellable": true,
         "in_shop": true

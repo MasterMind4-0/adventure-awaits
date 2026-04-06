@@ -19,8 +19,14 @@ def talk(text: str, custom_wait: bool = False, wait_time: int = 2):
     if not custom_wait:
         num_characters = len(text)
         wait_time = num_characters // 28
-        
-    time.sleep(wait_time)
+
+    if config.dev_mode:
+        time.sleep(0.5)
+    else:
+        time.sleep(wait_time)
+
+def format_name(name: str):
+    return f'{colors.NAME}{name}{colors.END}'
 
 def calculate_chance(chance: float, modifier = None):
     # The chance you give, btw, is the chance of winning

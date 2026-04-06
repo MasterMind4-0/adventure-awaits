@@ -3,24 +3,24 @@
         "name": "rum",
         "display_name": "Rum",
         "drunk_effective": 0.7,
-        "price": 2,
-        "sellable": false,
-        "in_shop": false
+        "price": 2
     },
     "wine": {
         "name": "wine",
         "display_name": "Wine",
         "drunk_effective": 0.25,
-        "price": 3,
-        "sellable": false,
-        "in_shop": false
+        "price": 3
     },
     "beer": {
         "name": "beer",
         "display_name": "Beer",
         "drunk_effective": 0.6,
-        "price": 2,
-        "sellable": false,
-        "in_shop": false
+        "price": 2
+    },
+    "ale": {
+        "name": "ale",
+        "display_name": "Ale",
+        "drunk_effective": 0.5,
+        "price": 2
     }
 }

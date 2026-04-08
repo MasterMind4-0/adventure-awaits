@@ -3,10 +3,7 @@ import config
 from systems.tavern import tavern
 from utils import talk, format_name, wait
 
-def alley_way(from_tavern: bool = False):
-    wait()
-
-def tavern():
+def visting_tavern():
     tavern_name = [
         "The Speared Boar", #Reference to "Burn the Witch" music video (Radiohead). In itself is a reference to "Lord of the Flies" :D
         "The Bloody Princess",
@@ -19,6 +16,5 @@ def tavern():
     tavern(tavern_name).entering_tavern()
     
 eventsls = [
-    alley_way,
-    tavern
+    visting_tavern
 ]

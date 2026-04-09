@@ -68,3 +68,13 @@ def death(death_by: str = ""):
         by = ""
     print(f"---~~~### {colors.HEALTH}{colors.TITLE}YOU DIED{by}{colors.END} ###~~~---")
     exit()
+
+def player_gained(gain_coins: int = 0, gain_items: list = [], print_message: bool = True):
+    if gain_coins:
+        config.coin += gain_coins
+        if print_message:
+            talk(f'You gained {colors.GOLD}{gain_coins}{colors.END}!')
+    if gain_items:
+        config.inventory.append(gain_items)
+        if print_message:
+            talk(f'You gained {colors.VALUE_ITEM}{gain_items}{colors.END}!')

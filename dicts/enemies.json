@@ -7,8 +7,19 @@
         "armor": "hood",
         "base_flee_chance": 0.25,
         "drops": {
-            "dagger": 0.5,
+            "dagger": 0.50,
             "hood": 0.25
         }
+    },
+    "skeleton": {
+        "name": "skeleton",
+        "display_name": "Skeleton",
+        "health": 10,
+        "weapon": "bone_dagger",
+        "armor": "natural_armor",
+        "base_flee_chance": 0.10,
+        "drops": {
+            "bone_dagger": 0.75
+        }  
     }
 }

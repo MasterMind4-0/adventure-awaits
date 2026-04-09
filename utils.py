@@ -73,8 +73,29 @@ def player_gained(gain_coins: int = 0, gain_items: list = [], print_message: boo
     if gain_coins:
         config.coin += gain_coins
         if print_message:
-            talk(f'You gained {colors.GOLD}{gain_coins}{colors.END}!')
+            talk(f'You gained {colors.GOLD}{gain_coins}{colors.END} coins!')
     if gain_items:
         config.inventory.append(gain_items)
         if print_message:
             talk(f'You gained {colors.VALUE_ITEM}{gain_items}{colors.END}!')
+
+def display_inventory():
+    # Getting amount of items in inventory as int
+    item_counts = {}
+    for item in config.inventory:
+        if item in item_counts:
+            item_counts[item] += 1
+        else:
+            item_counts[item] = 1
+    
+    result = ""
+    for item, count in item_counts.items():
+        for category, items in config.entities.items():
+            if item in items:
+                display_name = items[item]['display_name']
+                break
+        if count > 1:
+            result += f'{display_name} x{count}\n'
+        else:
+            result += f'{display_name}\n'
+    return result

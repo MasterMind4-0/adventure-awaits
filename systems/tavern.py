@@ -60,6 +60,7 @@ class tavern:
                 case '4':
                     self.gossip()
                 case '5':
+                    self.player_leaving = True
                     break
         return
     
@@ -79,7 +80,6 @@ class tavern:
             choice = input()
             if choice in ['1', '2', '3', '4', '5']:
                 return choice
-                return
             else:
                 talk('Invalid answer. Try again.', True)
     
@@ -111,7 +111,6 @@ class tavern:
             if choice.lower() in ['1', '2', '3', 'spec']:
                 self.purchased_drink(choice)
             elif choice.lower() == 'l':
-                self.tavern_hub()
                 return
             else:
                 talk('Invalid answer. Try again.', True)

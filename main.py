@@ -24,20 +24,23 @@ def change_equipment():
     2. Armor
     ''')
     choice = input()
+    print(display_inventory())
     match choice:
         case '1':
-            print(display_inventory())
-            weapon = input('New weapon: ').lower().replace(' ', '_')
+            to_be_swapped = input('New weapon: ').lower().replace(' ', '_')
+            category = 'weapons'
 
-            if weapon in config.entities['weapons'].keys():
-                config.player_weapon = config.entities['weapons'][weapon]
         case '2':
-            print(display_inventory())
-            armor = input('New armor: ').lower().replace(' ', '_')
-
-            if armor in config.entities['armors'].keys():
-                config.player_armor = config.entities['armors'][armor]
-
+            to_be_swapped = input('New armor: ').lower().replace(' ', '_')
+            category = 'armors'
+    
+    if to_be_swapped in config.entities[category].keys() and to_be_swapped in config.inventory:
+        if category == 'armors':
+            config.player_armor = config.entities[category][to_be_swapped]
+        elif category == 'weapons':
+            config.player_weapon = config.entities[category][to_be_swapped]
+    else:
+        talk(f'{to_be_swapped} isn\'t in your inventory!')
 
 while True:
     print(f'''
@@ -58,10 +61,7 @@ while True:
     choice = input()
     match choice:
         case '1':
-            pass
+            wait()
+            random.choice(events.eventsls)()
         case '2':
             change_equipment()
-
-
-    wait()
-    random.choice(events.eventsls)()

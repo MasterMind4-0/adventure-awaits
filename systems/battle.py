@@ -2,7 +2,7 @@ import colors
 import time
 import config
 import random
-from utils import talk, format_damage, death
+from utils import talk, format_damage, death, player_gained_exp
 
 class battle:
     def __init__(self, preset: str, player_initiative: bool, prevent_item_drops: bool = False, prevent_coin_drop: bool = False):
@@ -134,7 +134,7 @@ class battle:
 
         if self.calculate_flee(player_fleeing):
             if player_fleeing:
-                config.player_stats['dexterity'] += random.uniform(0.01, 0.05)
+                player_gained_exp('dexterity', 0.01, 0.05, False)
 
             talk(f'{subject_fleeing} runs off, leaving nothing, but dust in the air.\n')
             self.fight_end(True, False)
@@ -154,7 +154,7 @@ class battle:
             talk(f'{self.enemy_display_name} swings their weapon at you.', True, 1)
         if self.calculate_hit(player_attacking):
             if player_attacking:
-                config.player_stats['strength'] += random.uniform(0.0001, 0.001)
+                player_gained_exp('strength', 0.0001, 0.001, False)
                 self.enemy_health -= self.calculate_damage(True)
 
                 talk(f'You clobber {self.enemy_display_name}.', True, 1)

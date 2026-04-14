@@ -1,7 +1,7 @@
 import config
 import colors
 import random
-from utils import talk, format_name, wait
+from utils import talk, format_name, wait, player_gained_exp
 
 class tavern:
     def __init__(self, tavern_display_name: str | list):
@@ -136,7 +136,6 @@ class tavern:
                 else:
                     talk('Invalid answer. Try again.', True)
         return
-
     
     def purchased_drink(self, drink_chose: str):
         bartender_buydrink = random.choice(self.bartender_buydrinkls)
@@ -178,7 +177,7 @@ class tavern:
             self.player_leaving = True
         else:
             try: # Basically, if var drink doesn't have the key 'con_exp' (aka, is a normal drink; not special) then it will pass do to an error
-                config.player_stats['constitution'] += drink['con_exp']
+                player_gained_exp('constitution', drink['con_exp'], drink['con_exp'], False)
             except:
                 pass
             talk('You bring the glass back down, it thumps to the table.')

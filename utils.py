@@ -90,7 +90,7 @@ def player_gained_exp(exp_type: str, exp_amount_min: int or float, exp_amount_ma
     if print_message:
         talk(f'You gained {gained_exp} in {exp_type}!')
 
-def display_inventory(choosen_category: str = ""):
+def display_inventory(chosen_category: str = ""):
     # Getting amount of items in inventory as int
     item_counts = {}
     for item in config.inventory:
@@ -102,8 +102,8 @@ def display_inventory(choosen_category: str = ""):
     result = ""
     for item, count in item_counts.items():
         for category, items in config.entities.items():
-            if choosen_category:
-                if choosen_category.lower() == category:
+            if chosen_category:
+                if chosen_category.lower() == category:
                     if item in items:
                         display_name = items[item]['display_name']
                         break

@@ -24,8 +24,7 @@ def skeleton_attack():
         player_gained(random.randint(6, 14))
         if calculate_chance(.6):
             talk('After you loot the body, it suddenly animates as you come near.')
-            talk('It screeches and lunges at you.')
-            battle('Skeleton', False).fight()
+            battle('Skeleton', False).fight_start('It screeches and lunges at you.')
             talk('You wipe the sweat off your brow.')
             talk('You also loot the body and find a couple coins.')
         else:
@@ -35,8 +34,7 @@ def skeleton_attack():
     elif choice == '3':
         if calculate_chance(.4):
             talk('The body animates as you come near,')
-            talk('It screeches and lunges at you.')
-            battle('skeleton', False).fight()
+            battle('skeleton', False).fight_start('It screeches and lunges at you.')
             talk('Once you kill the undead. You bury the body.')
             talk('You wipe the sweat off your brow as you leave.')
         else:

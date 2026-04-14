@@ -133,6 +133,9 @@ class battle:
         talk(f"Before {subject_fleeing} can even finish their sentence,")
 
         if self.calculate_flee(player_fleeing):
+            if player_fleeing:
+                config.player_stats['dexterity'] += random.uniform(0.01, 0.05)
+
             talk(f'{subject_fleeing} runs off, leaving nothing, but dust in the air.\n')
             self.fight_end(True, False)
         else:
@@ -151,7 +154,9 @@ class battle:
             talk(f'{self.enemy_display_name} swings their weapon at you.', True, 1)
         if self.calculate_hit(player_attacking):
             if player_attacking:
+                config.player_stats['strength'] += random.uniform(0.0001, 0.001)
                 self.enemy_health -= self.calculate_damage(True)
+
                 talk(f'You clobber {self.enemy_display_name}.', True, 1)
                 if config.dev_mode:
                     print(f'{colors.DEV}Enemy health: {self.enemy_health}{colors.END}')

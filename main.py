@@ -17,30 +17,39 @@ if config.name.lower() != 'dev':
 talk(f'{config.name} is quite a good one.')
 
 def change_equipment():
-    print(f'''
-    Change..?
+    while True:
+        print(f'''
+        Change..?
 
-    1. Weapon
-    2. Armor
-    ''')
-    choice = input()
-    print(display_inventory())
-    match choice:
-        case '1':
-            to_be_swapped = input('New weapon: ').lower().replace(' ', '_')
-            category = 'weapons'
+        1. Weapon
+        2. Armor
+        ''')
+        choice = input()
+        print(display_inventory())
+        match choice:
+            case '1':
+                to_be_swapped = input('New weapon: ').lower().replace(' ', '_')
+                category = 'weapons'
+                break
 
-        case '2':
-            to_be_swapped = input('New armor: ').lower().replace(' ', '_')
-            category = 'armors'
-    
-    if to_be_swapped in config.entities[category].keys() and to_be_swapped in config.inventory:
-        if category == 'armors':
-            config.player_armor = config.entities[category][to_be_swapped]
-        elif category == 'weapons':
-            config.player_weapon = config.entities[category][to_be_swapped]
-    else:
-        talk(f'{to_be_swapped} isn\'t in your inventory!')
+            case '2':
+                to_be_swapped = input('New armor: ').lower().replace(' ', '_')
+                category = 'armors'
+                break
+
+            case _:
+                talk('ERROR. Try again.')
+
+    while True:
+        if to_be_swapped in config.entities[category].keys() and to_be_swapped in config.inventory:
+            if category == 'armors':
+                config.player_armor = config.entities[category][to_be_swapped]
+            elif category == 'weapons':
+                config.player_weapon = config.entities[category][to_be_swapped]
+            break
+        else:
+            talk(f'{to_be_swapped} isn\'t in your inventory!')
+            break
 
 while True:
     print(f'''

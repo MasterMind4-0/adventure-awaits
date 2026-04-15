@@ -23,6 +23,8 @@ def change_equipment():
 
         1. Weapon
         2. Armor
+
+        3. Return to previous menu
         ''')
         choice = input()
         print(display_inventory())
@@ -36,6 +38,9 @@ def change_equipment():
                 to_be_swapped = input('New armor: ').lower().replace(' ', '_')
                 category = 'armors'
                 break
+
+            case '3':
+                return
 
             case _:
                 talk('ERROR. Try again.')

@@ -79,8 +79,8 @@ def player_gained(gain_coins: int = 0, gain_items: list = [], print_message: boo
         if print_message:
             talk(f'You gained {colors.VALUE_ITEM}{gain_items}{colors.END}!')
 
-def player_gained_exp(exp_type: str, exp_amount_min: int or float, exp_amount_max: int or float, print_message: bool):
-    exp_var = config.player_stats[exp_type]
+def player_gained_exp(exp_type: str, exp_amount_min: int | float, exp_amount_max: int | float, print_message: bool):
+    exp_var = config.player_stats[exp_type] 
     if isinstance(exp_amount_min, float) and isinstance(exp_amount_max, float):
         gained_exp = random.uniform(exp_amount_min, exp_amount_max)
     else:

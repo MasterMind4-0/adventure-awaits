@@ -2,7 +2,7 @@ import colors
 import time
 import config
 import random
-from utils import talk, format_damage, death, player_gained_exp
+from utils import talk, format_damage, death, player_gained_exp, display_inventory
 
 class battle:
     def __init__(self, preset: str, player_initiative: bool, prevent_item_drops: bool = False, prevent_coin_drop: bool = False):
@@ -53,7 +53,45 @@ class battle:
             talk('Invalid answer. Try again.', True)
 
     def healing_menu(self):
-        pass
+        health_potions = [item for item in config.inventory if 'health_potion' in item]
+        
+        if not health_potions:
+            talk('You have no health potions!', True)
+            return
+        
+        print(f'\n{colors.TITLE}Your Health Potions:{colors.END}')
+        for i, potion in enumerate(health_potions, 1):
+            display_name = config.entities['items'][potion]['display_name']
+            min_heal = config.entities['items'][potion]['min']
+            max_heal = config.entities['items'][potion]['max']
+
+            print(f'{i}. {display_name}')
+        
+        print(f'{len(health_potions) + 1}. Cancel\n')
+        choice = input('Which health potion: ').strip()
+
+        if not choice.isdigit():
+            talk('Invalid choice.', True)
+            return
+        choice_idx = int(choice)
+
+        if choice_idx == len(health_potions) + 1:
+            talk('You decided not to use a potion.', True)
+            return
+        if choice_idx < 1 or choice_idx > len(health_potions):
+            talk('Invalid choice.', True)
+            return
+        
+        selected_potion = health_potions[choice_idx - 1]
+        potion_data = config.entities['items'][selected_potion]
+        heal_amount = random.randint(potion_data['min'], potion_data['max'])
+        old_health = config.player_health
+        config.player_health += heal_amount
+
+        talk(f'You used {potion_data["display_name"]} and recovered {heal_amount} health! ({old_health} → {config.player_health})', True)
+
+        config.inventory.remove(selected_potion)
+        return
 
     def fight_start(self, custom_entry_phrase: str = "", lethal_fight: bool = True):
         self.lethal_fight = lethal_fight

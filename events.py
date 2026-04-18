@@ -24,7 +24,7 @@ def skeleton_attack():
         player_gained(random.randint(6, 14))
         if calculate_chance(.6):
             talk('After you loot the body, it suddenly animates as you come near.')
-            battle('Skeleton', False).fight_start('It screeches and lunges at you.')
+            battle('Skeleton').fight_start('It screeches and lunges at you.')
             talk('You wipe the sweat off your brow.')
             talk('You also loot the body and find a couple coins.')
         else:
@@ -34,14 +34,28 @@ def skeleton_attack():
     elif choice == '3':
         if calculate_chance(.4):
             talk('The body animates as you come near,')
-            battle('skeleton', False).fight_start('It screeches and lunges at you.')
+            battle('skeleton').fight_start('It screeches and lunges at you.')
             talk('Once you kill the undead. You bury the body.')
             talk('You wipe the sweat off your brow as you leave.')
         else:
             talk('You bury the body, say your prayers, and leave.')
     return
+
     
-eventsls = [
-    visting_tavern,
-    skeleton_attack
-]
+eventsdict = {
+    'visting_tavern': {
+        'name': 'visting_tavern',
+        'call': visting_tavern,
+
+    },
+    'skeleton_attack': {
+        'name': 'skeleton_attack',
+        'call': skeleton_attack,
+        'tags': [
+            'quest'
+        ]
+    }
+}
+eventsls = []
+for event_name in eventsdict.keys():
+    eventsls.append(eventsdict[event_name]['call'])

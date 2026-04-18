@@ -5,7 +5,7 @@ import random
 from utils import talk, format_damage, death, player_gained_exp, display_inventory
 
 class battle:
-    def __init__(self, preset: str, player_initiative: bool, prevent_item_drops: bool = False, prevent_coin_drop: bool = False):
+    def __init__(self, preset: str, player_initiative: bool = False, prevent_item_drops: bool = False, prevent_coin_drop: bool = False):
         preset = preset.lower()
         enemy_weapon = config.entities['enemies'][preset]['weapon']
         enemy_armor = config.entities['enemies'][preset]['armor']

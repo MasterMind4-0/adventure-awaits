@@ -114,9 +114,9 @@ class battle:
             dropped_items = self.calculate_dropped_items()
             print(f'---~~~### {colors.TITLE}YOU WON!{colors.END} ###~~~---')
             if self.gold_drop and rewards_dropped:
-                talk(f'You gained {self.gold_drop} coins')
+                talk(f'You gained {colors.GOLD}{self.gold_drop}{colors.END} coins')
             if dropped_items and rewards_dropped:
-                talk(f'You looted the body and found {dropped_items}')
+                talk(f'You looted the body and found {colors.VALUE_ITEM}{dropped_items}{colors.TITLE}')
         else:
             if self.lethal_fight:
                 death(self.enemy_display_name)

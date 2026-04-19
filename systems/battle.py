@@ -135,7 +135,13 @@ class battle:
             if config.player_health <= 0:
                 self.fight_end(False)
                 break
+            if self.enemy_health <= 0:
+                self.fight_end(True)
+                break
             self.player_turn()
+            if config.player_health <= 0:
+                self.fight_end(False)
+                break
             if self.enemy_health <= 0:
                 self.fight_end(True)
                 break
@@ -158,7 +164,8 @@ class battle:
         compared_value = random.random()
         if compared_value < self.enemy_base_flee_chance and self.enemy_health <= 5:
             self.flee(False)
-        self.perform_attack(False)
+        if self.enemy_health > 0:
+            self.perform_attack(False)
         return
 
     def flee(self, player_fleeing: bool):

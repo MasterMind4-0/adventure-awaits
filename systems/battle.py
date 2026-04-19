@@ -118,8 +118,7 @@ class battle:
             if self.lethal_fight:
                 death(self.enemy['display_name'])
             else:
-                talk(f'{self.enemy['display_name']}: Pff. Not worth my time.')
-                talk(f'You lived.')
+                talk(f'{self.enemy['display_name']} then stops, dusting their shoulders.')
         print('---~~~################~~~---\n\n')
         return
 

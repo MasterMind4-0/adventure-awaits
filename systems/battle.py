@@ -123,7 +123,7 @@ class battle:
             else:
                 talk(f'{self.enemy_display_name}: Pff. Not worth my time.')
                 talk(f'You lived.')
-            print('---~~~################~~~---\n\n')
+        print('---~~~################~~~---\n\n')
         return
 
     def fight(self):

@@ -28,5 +28,15 @@
         "affected_var": "player_health",
         "sellable": true,
         "in_shop": true
+    },
+    "rejuvenation_potion": {
+        "name": "rejuvenation_potion",
+        "display_name": "Rejuvenation potion",
+        "min": 2,
+        "max": 6,
+        "price": 20,
+        "affected_var": "player_max_health",
+        "sellable": true,
+        "in_shop": true
     }
 }

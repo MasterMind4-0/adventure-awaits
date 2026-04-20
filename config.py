@@ -24,6 +24,7 @@ name = 'dev'
 dev_mode = True
 coin = 100
 player_health = 20
+player_max_health = 20
 inventory = [
     "greatest_health_potion",
     "greatest_health_potion"

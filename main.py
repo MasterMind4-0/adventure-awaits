@@ -18,6 +18,8 @@ talk(f'{config.name} is quite a good one.')
 
 def change_equipment():
     while True:
+        if config.player_health > config.player_max_health:
+            config.player_health = config.player_max_health
         print(f'''
         Change..?
 

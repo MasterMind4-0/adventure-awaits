@@ -143,6 +143,8 @@ class battle:
                 break
 
     def player_turn(self):
+        if config.player_health > config.player_max_health:
+            config.player_health = config.player_max_health
         talk('\nYour turn!\n', True, 1)
         action = self.player_menu()
         

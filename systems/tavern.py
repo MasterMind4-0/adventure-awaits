@@ -129,6 +129,8 @@ class tavern:
                 choice = input("Purchase a room? (fully healed) (Y/N)\n")
                 if choice.lower() == 'y':
                     self.purchased_room = True
+                    config.player_health = config.player_max_health
+                    talk('You spend the night, and awake refreshed.')
                     break
                 elif choice.lower() == 'n':
                     talk(f'{format_name('Bartender')}: Shame, let me know if you change your mind later on.')

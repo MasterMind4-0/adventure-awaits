@@ -1,0 +1,29 @@
+{
+    "health_potion": {
+        "name": "health_potion",
+        "display_name": "Health Potion",
+        "min": 1,
+        "max": 5,
+        "price": 5,
+        "sellable": true,
+        "in_shop": true
+    },
+    "greater_health_potion": {
+        "name": "greater_health_potion",
+        "display_name": "Greater health potion",
+        "min": 1,
+        "max": 10,
+        "price": 15,
+        "sellable": true,
+        "in_shop": true
+    },
+    "greatest_health_potion": {
+        "name": "greatest_health_potion",
+        "display_name": "Greatest health potion",
+        "min": 1,
+        "max": 20,
+        "price": 25,
+        "sellable": true,
+        "in_shop": true
+    }
+}

@@ -72,7 +72,7 @@ def death(death_by: str = ""):
 def player_var_change(coins: int = 0, items: list = [], print_message: bool = True):
     if coins:
         if coins < 0:
-            config.coin -= coins
+            config.coin += coins
             if print_message:
                 talk(f'You {colors.TITLE}lost{colors.END} {colors.GOLD}{coins}{colors.END} coins!')
         else:

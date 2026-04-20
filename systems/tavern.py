@@ -1,7 +1,7 @@
 import config
 import colors
 import random
-from utils import talk, format_name, wait, player_gained_exp
+from utils import talk, format_name, wait, player_gained_exp, player_var_change
 
 class tavern:
     def __init__(self, tavern_display_name: str | list):
@@ -130,6 +130,7 @@ class tavern:
                 if choice.lower() == 'y':
                     self.purchased_room = True
                     config.player_health = config.player_max_health
+                    player_var_change(-self.room_price)
                     talk('You spend the night, and awake refreshed.')
                     break
                 elif choice.lower() == 'n':

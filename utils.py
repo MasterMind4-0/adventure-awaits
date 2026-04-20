@@ -69,15 +69,20 @@ def death(death_by: str = ""):
     print(f"---~~~### {colors.HEALTH}{colors.TITLE}YOU DIED{by}{colors.END} ###~~~---")
     exit()
 
-def player_gained(gain_coins: int = 0, gain_items: list = [], print_message: bool = True):
-    if gain_coins:
-        config.coin += gain_coins
+def player_var_change(coins: int = 0, items: list = [], print_message: bool = True):
+    if coins:
+        if coins < 0:
+            config.coin -= coins
+            if print_message:
+                talk(f'You lost {colors.GOLD}{coins}{colors.END} coins!')
+        else:
+            config.coin += coins
+            if print_message:
+                talk(f'You gaind {colors.GOLD}{coins}{colors.END} coins!')
+    if items:
+        config.inventory.append(items)
         if print_message:
-            talk(f'You gained {colors.GOLD}{gain_coins}{colors.END} coins!')
-    if gain_items:
-        config.inventory.append(gain_items)
-        if print_message:
-            talk(f'You gained {colors.VALUE_ITEM}{gain_items}{colors.END}!')
+            talk(f'You gained {colors.VALUE_ITEM}{items}{colors.END}!')
 
 def player_gained_exp(exp_type: str, exp_amount_min: int | float, exp_amount_max: int | float, print_message: bool):
     exp_var = config.player_stats[exp_type] 

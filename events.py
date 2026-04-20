@@ -3,7 +3,7 @@ import config
 import random
 from systems.tavern import tavern
 from systems.battle import battle
-from utils import talk, format_name, wait, calculate_chance, player_gained
+from utils import talk, format_name, wait, calculate_chance, player_var_change
 
 def visting_tavern():
     tavern_name = [
@@ -21,7 +21,7 @@ def skeleton_attack():
     talk('You come across a dead body, its skeleton showing through the rotton flesh.')
     choice = input('Should you loot the body, walk away, or bury the body? (1, 2, or 3)\n')
     if choice == '1':
-        player_gained(random.randint(6, 14))
+        player_var_change(random.randint(6, 14))
         if calculate_chance(.6):
             talk('After you loot the body, it suddenly animates as you come near.')
             battle('Skeleton').fight_start('It screeches and lunges at you.')

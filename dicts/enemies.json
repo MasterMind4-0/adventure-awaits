@@ -21,5 +21,16 @@
         "drops": {
             "bone_dagger": 0.75
         }  
+    },
+    "bear": {
+        "name": "bear",
+        "display_name": "Bear",
+        "health": 10,
+        "weapon": "bone_dagger",
+        "armor": "natural_armor",
+        "base_flee_chance": 0.10,
+        "drops": {
+            "raw_meat": 1
+        }
     }
 }

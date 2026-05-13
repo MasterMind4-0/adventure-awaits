@@ -1,0 +1,9 @@
+{
+    "raw_meat": {
+        "name": "raw_meat",
+        "display_name": "Raw Meat",
+        "price": 2,
+        "sellable": true,
+        "in_shop": false
+    }
+}

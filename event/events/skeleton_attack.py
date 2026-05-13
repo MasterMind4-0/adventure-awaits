@@ -3,7 +3,7 @@ import config
 import random
 from systems.tavern import tavern
 from systems.battle import battle
-from utils import talk, format_name, wait, calculate_chance, player_var_change
+from utils import talk, format_name, wait, calculate_chance, player_var_change, player_mc
 
 tags = {
     'is_quest': False
@@ -11,8 +11,8 @@ tags = {
 
 def skeleton_attack():
     talk('You come across a dead body, its skeleton showing through the rotton flesh.')
-    choice = input('Should you loot the body, walk away, or bury the body? (1, 2, or 3)\n')
-    if choice == '1':
+    choice = player_mc(['Loot the body', 'Bury the body', 'Walk away'])
+    if choice == '0':
         player_var_change(random.randint(6, 14))
         if calculate_chance(.6):
             talk('After you loot the body, it suddenly animates as you come near.')
@@ -21,9 +21,7 @@ def skeleton_attack():
             talk('You also loot the body and find a couple coins.')
         else:
             talk('You loot the body of its past life\'s belongings.')
-    elif choice == '2':
-        talk('You decided to leave, best to leave the dead to the body collectors.')
-    elif choice == '3':
+    elif choice == '1':
         if calculate_chance(.4):
             talk('The body animates as you come near,')
             battle('skeleton').fight_start('It screeches and lunges at you.')
@@ -31,4 +29,6 @@ def skeleton_attack():
             talk('You wipe the sweat off your brow as you leave.')
         else:
             talk('You bury the body, say your prayers, and leave.')
+    elif choice == '2':
+        talk('You decided to leave, best to leave the dead to the body collectors.')
     return

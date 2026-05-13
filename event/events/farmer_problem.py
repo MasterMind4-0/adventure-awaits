@@ -3,7 +3,7 @@ import config
 import random
 from systems.tavern import tavern
 from systems.battle import battle
-from utils import talk, format_name, wait, calculate_chance, player_var_change
+from utils import talk, format_name, wait, calculate_chance, player_var_change, player_mc
 
 tags = {
     'is_quest': True
@@ -15,8 +15,8 @@ def farmer_problem():
 
     talk('A farmer comes, begging for your help,')
     talk(f"{Farmer}: Please! Every night something eats my crops! You look like a charming, capable person; I beg, everyone has rejected, but can you help me?")
-    choice = input('Should you help the man? (Y/N)\n')
-    if choice == 'y':
+    choice = player_mc(['Yes', "No"], 'Should you help the man?')
+    if choice == '1':
         talk(f"{player_name}: Well, I don't see why not.")
         talk('The man graciously thanks you.')
         talk(f"{Farmer}: Every night my berries always seem to be gone! Do you think you can stay overnight and discover what beast eats my berries?")
@@ -27,11 +27,11 @@ def farmer_problem():
             talk('The bear stands on its hind legs, you fall backwards in fear.')
             talk('You dash before the bear does anything else.')
             return
-        choice = input('Should you fight the bear, try to tame the bear, or should you leave it be? (1, 2, or 3)\n')
-        if choice == '1':
+        choice = player_mc(['Fight the bear', 'Tame the bear', 'Leave it alone'])
+        if choice == '0':
             talk('You charge the bear, frightening it.')
             battle('bear', prevent_coin_drop=True).fight_start()
-        elif choice == '2':
+        elif choice == '1':
             talk(f'{player_name}: Woah! Easy there.')
             talk('The bear seems to stare at you,')
             talk('You reach out your hand.')

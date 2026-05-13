@@ -33,7 +33,7 @@ def player_mc(choices: list, text: str = 'What should you do?',):
         print(f'{choices.index(choice) + 1}. {choice}')
     print()
     
-    player_selected_choice = input(f'{text}\n')
+    player_selected_choice = input(f'{text}\n').strip()
 
     return str(int(player_selected_choice) - 1)
 

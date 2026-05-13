@@ -53,7 +53,8 @@ def calculate_chance(chance: float, modifier = None, give_exp: bool = True):
                 dev_output = f"New {modifier} value: {config.player_stats[modifier]}"
     else:
         win_chance = chance
-    dev_output = f"{dev_output}\nModified chance: {win_chance}\nCompared value: {random_value}"
+    if config.dev_mode:
+        dev_output = f"{dev_output}\nModified chance: {win_chance}\nCompared value: {random_value}"
     print(f"{colors.DEV}{dev_output}{colors.END}")
     
     if random_value < win_chance:

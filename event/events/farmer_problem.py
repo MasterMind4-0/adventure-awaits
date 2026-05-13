@@ -30,7 +30,7 @@ def farmer_problem():
         choice = player_mc(['Fight the bear', 'Tame the bear', 'Leave it alone'])
         if choice == '0':
             talk('You charge the bear, frightening it.')
-            battle('bear', prevent_coin_drop=True).fight_start()
+            battle('bear', True, prevent_coin_drop=True).fight_start()
         elif choice == '1':
             talk(f'{player_name}: Woah! Easy there.')
             talk('The bear seems to stare at you,')

@@ -28,16 +28,22 @@ def talk(text: str, custom_wait: bool = False, wait_time: int = 2):
 def format_name(name: str):
     return f'{colors.NAME}{name}{colors.END}'
 
-def calculate_chance(chance: float, modifier = None):
+def calculate_chance(chance: float, modifier = None, give_exp: bool = True):
     # The chance you give, btw, is the chance of winning
+    dev_output = ""
     random_value = random.random()
+
     if modifier:
         win_chance = chance - (config.player_stats[modifier] / 10)
-        config.player_stats[modifier] += random.uniform(0, 0.1)
-        if config.dev_mode:
-            print(f"{colors.DEV}Modified chance: {win_chance}\nCompared value: {random_value}\nNew {modifier} value: {config.player_stats[modifier]}{colors.END}")
+        if give_exp:
+            config.player_stats[modifier] += random.uniform(0, 0.1)
+            if config.dev_mode:
+                dev_output = f"New {modifier} value: {config.player_stats[modifier]}"
     else:
         win_chance = chance
+    dev_output = f"{dev_output}\nModified chance: {win_chance}\nCompared value: {random_value}"
+    print(f"{colors.DEV}{dev_output}{colors.END}")
+    
     if random_value < win_chance:
         return True
     else:

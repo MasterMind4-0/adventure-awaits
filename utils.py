@@ -29,7 +29,7 @@ def format_name(name: str):
     return f'{colors.NAME}{name}{colors.END}'
 
 def calculate_chance(chance: float, modifier = None, give_exp: bool = True):
-    # The chance you give, btw, is the chance of winning
+    # The chance you give, btw, is the chance of returning True
     dev_output = ""
     random_value = random.random()
 

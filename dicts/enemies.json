@@ -26,7 +26,7 @@
         "name": "bear",
         "display_name": "Bear",
         "health": 10,
-        "weapon": "bone_dagger",
+        "weapon": "longsword",
         "armor": "natural_armor",
         "base_flee_chance": 0.10,
         "drops": {

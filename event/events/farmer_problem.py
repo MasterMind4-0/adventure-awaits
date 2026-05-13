@@ -16,7 +16,7 @@ def farmer_problem():
     talk('A farmer comes, begging for your help,')
     talk(f"{Farmer}: Please! Every night something eats my crops! You look like a charming, capable person; I beg, everyone has rejected, but can you help me?")
     choice = player_mc(['Yes', "No"], 'Should you help the man?')
-    if choice == '1':
+    if choice == '0':
         talk(f"{player_name}: Well, I don't see why not.")
         talk('The man graciously thanks you.')
         talk(f"{Farmer}: Every night my berries always seem to be gone! Do you think you can stay overnight and discover what beast eats my berries?")

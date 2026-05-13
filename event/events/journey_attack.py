@@ -21,7 +21,7 @@ intro_sentence = [
 
 def journey_attack():
     attacker = random.choice(possible_attackers)
-    attacker_name = format_name(attacker)
+    attacker_name = format_name(config.entities['enemies'][attacker]['display_name'])
     introduction = random.choice(intro_sentence)
 
     talk(introduction)
@@ -30,7 +30,7 @@ def journey_attack():
         talk('You notice a figure hiding near you, you get the jump on the creature.')
         battle(attacker, True).fight_start()
     else:
-        talk(f'a {attacker_name} pounces at you.')
+        talk(f'A {attacker_name} pounces at you.')
         battle(attacker).fight_start()
 
 

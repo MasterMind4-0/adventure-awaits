@@ -22,6 +22,17 @@
             "bone_dagger": 0.75
         }  
     },
+    "goblin": {
+        "name": "goblin",
+        "display_name": "Goblin",
+        "health": 5,
+        "weapon": "shortsword",
+        "armor": "no_armor",
+        "base_flee_chance": 0.35,
+        "drops": {
+            "shortsword": 0.75
+        }
+    },
     "bear": {
         "name": "bear",
         "display_name": "Bear",

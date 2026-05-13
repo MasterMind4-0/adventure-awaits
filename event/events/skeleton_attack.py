@@ -5,17 +5,9 @@ from systems.tavern import tavern
 from systems.battle import battle
 from utils import talk, format_name, wait, calculate_chance, player_var_change
 
-def visting_tavern():
-    tavern_name = [
-        "The Speared Boar", #Reference to "Burn the Witch" music video (Radiohead). In itself is a reference to "Lord of the Flies" :D
-        "The Bloody Princess",
-        "The Blushing Guitar",
-        "The Laughable Hag",
-        "The Red Oysters Pub",
-        "The Loud Lantern Inn"
-    ]
-    
-    tavern(tavern_name).entering_tavern()
+tags = {
+    'is_quest': False
+}
 
 def skeleton_attack():
     talk('You come across a dead body, its skeleton showing through the rotton flesh.')
@@ -40,22 +32,3 @@ def skeleton_attack():
         else:
             talk('You bury the body, say your prayers, and leave.')
     return
-
-    
-eventsdict = {
-    'visting_tavern': {
-        'name': 'visting_tavern',
-        'call': visting_tavern,
-
-    },
-    'skeleton_attack': {
-        'name': 'skeleton_attack',
-        'call': skeleton_attack,
-        'tags': [
-            'quest'
-        ]
-    }
-}
-eventsls = []
-for event_name in eventsdict.keys():
-    eventsls.append(eventsdict[event_name]['call'])

@@ -1,7 +1,7 @@
 import time
 import random
 import config
-import events
+import event.events_main as events
 import colors
 from systems.battle import battle
 from systems.tavern import tavern

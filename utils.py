@@ -25,6 +25,18 @@ def talk(text: str, custom_wait: bool = False, wait_time: int = 2):
     else:
         time.sleep(wait_time)
 
+def player_mc(choices: list, text: str = 'What should you do?',):
+    # mc = multiple choice
+
+    print()
+    for choice in choices:
+        print(f'{choices.index(choice) + 1}. {choice}')
+    print()
+    
+    player_selected_choice = input(f'{text}\n')
+
+    return str(int(player_selected_choice) - 1)
+
 def format_name(name: str):
     return f'{colors.NAME}{name}{colors.END}'
 

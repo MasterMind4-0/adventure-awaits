@@ -35,9 +35,12 @@ def player_mc(choices: list, text: str = 'What should you do?', leave_option_tex
         print(f'L. {leave_option_text}')
     print()
     
-    player_selected_choice = input(f'{text}\n').strip()
+    player_selected_choice = input(f'{text}\n').strip().lower()
 
-    return str(int(player_selected_choice) - 1)
+    try:
+        return str(int(player_selected_choice) - 1)
+    except ValueError:
+        return player_selected_choice
 
 def format_name(name: str):
     return f'{colors.NAME}{name}{colors.END}'

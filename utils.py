@@ -89,6 +89,8 @@ def death(death_by: str = ""):
     exit()
 
 def player_var_change(coins: int = 0, items: list = [], print_message: bool = True):
+    coins = round(coins)
+
     if coins:
         if coins < 0:
             config.coin += coins

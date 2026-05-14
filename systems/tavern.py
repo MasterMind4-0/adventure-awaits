@@ -1,7 +1,8 @@
 import config
 import colors
 import random
-from utils import talk, format_name, wait, player_gained_exp, player_var_change
+import event.events_main as events
+from utils import talk, format_name, wait, player_gained_exp, player_var_change, player_mc
 
 class tavern:
     def __init__(self, tavern_display_name: str | list):
@@ -25,19 +26,24 @@ class tavern:
             "Be sure to head my way when your head clears again."
         ]
 
-        # Picking special drink and also the normal ones
+        # Tavern drinks
         drinksls = list(config.entities['drinks'].keys())
         spec_drinksls = list(config.entities['spec_drinks'].keys())
 
         self.tavern_drinks = random.sample(drinksls, k=3)
         self.tavern_special_drink = random.choice(spec_drinksls)
+
+        # Room mechanic
         self.room_price = random.randint(5, 15)
+        self.purchased_room = False
+
+        # Quest mechanic
+        self.quest_generated = False
         
         if isinstance(tavern_display_name, list):
             self.tavern_display_name = random.choice(tavern_display_name)
         else:
             self.tavern_display_name = tavern_display_name
-        self.purchased_room = False
 
     def entering_tavern(self):
         talk(f'You enter, the smell of ale-soaked bread crusts fill your nose.')
@@ -115,6 +121,31 @@ class tavern:
             else:
                 talk('Invalid answer. Try again.', True)
 
+    def quest_board_menu(self):
+        # Generate quests if not already
+        if not self.quest_generated:
+            viable_quests = []
+            self.quest_generated = True
+            #amount_of_possible_quests = random.randint(1, 4)
+            amount_of_possible_quests = 1
+
+            for quest in events.eventsdict.keys():
+                if events.eventsdict[quest]['tags']['is_quest']:
+                    viable_quests.append(quest)
+                    if config.dev_mode:
+                        print(f'{colors.DEV}Viable quest discovered: {quest}{colors.END}')
+            selected_quests = random.sample(viable_quests, k=amount_of_possible_quests)
+
+        choice = player_mc(selected_quests, 'Which quest?')
+
+        if choice == 'l':
+            return
+        else:
+            for quest in selected_quests:
+                if choice == str(selected_quests.index(quest)):
+                    print('\n')
+                    events.eventsdict[quest]['call']()
+        
     def room_menu(self):
         if self.purchased_room:
             talk(f'{format_name('Bartender')}: Mate, you\'ve already bought a room! Too much alcohol for you, surely.')

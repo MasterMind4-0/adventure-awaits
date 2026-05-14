@@ -15,7 +15,7 @@ def farmer_problem():
 
     talk('A farmer comes, begging for your help,')
     talk(f"{Farmer}: Please! Every night something eats my crops! You look like a charming, capable person; I beg, everyone has rejected, but can you help me?")
-    choice = player_mc(['Yes', "No"], 'Should you help the man?')
+    choice = player_mc(['Yes', "No"], 'Should you help the man?', leave_option=False)
     if choice == '0':
         talk(f"{player_name}: Well, I don't see why not.")
         talk('The man graciously thanks you.')
@@ -27,7 +27,7 @@ def farmer_problem():
             talk('The bear stands on its hind legs, you fall backwards in fear.')
             talk('You dash before the bear does anything else.')
             return
-        choice = player_mc(['Fight the bear', 'Tame the bear', 'Leave it alone'])
+        choice = player_mc(['Fight the bear', 'Tame the bear', 'Leave it alone'], leave_option=False)
         if choice == '0':
             talk('You charge the bear, frightening it.')
             battle('bear', True, prevent_coin_drop=True).fight_start()

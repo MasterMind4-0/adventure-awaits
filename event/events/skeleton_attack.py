@@ -11,7 +11,7 @@ tags = {
 
 def skeleton_attack():
     talk('You come across a dead body, its skeleton showing through the rotton flesh.')
-    choice = player_mc(['Loot the body', 'Bury the body', 'Walk away'])
+    choice = player_mc(['Loot the body', 'Bury the body'], leave_option_text='Walk away')
     if choice == '0':
         player_var_change(random.randint(6, 14))
         if calculate_chance(.6):
@@ -29,6 +29,6 @@ def skeleton_attack():
             talk('You wipe the sweat off your brow as you leave.')
         else:
             talk('You bury the body, say your prayers, and leave.')
-    elif choice == '2':
+    elif choice == 'l':
         talk('You decided to leave, best to leave the dead to the body collectors.')
     return

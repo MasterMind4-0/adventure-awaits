@@ -93,7 +93,7 @@ def death(death_by: str = ""):
     print(f"---~~~### {colors.HEALTH}{colors.TITLE}YOU DIED{by}{colors.END} ###~~~---")
     exit()
 
-def player_var_change(coins: int = 0, items: list = [], print_message: bool = True):
+def player_var_change(coins: int = 0, items = None, print_message: bool = True):
     coins = round(coins)
 
     if coins:

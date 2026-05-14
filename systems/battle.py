@@ -12,6 +12,7 @@ class battle:
 
         self.player_initiative = player_initiative
         self.player_victory = False
+        self.exit_loop = False
 
         self.enemy = config.entities['enemies'][preset]
 
@@ -107,9 +108,13 @@ class battle:
         self.fight()
 
     def fight_end(self, player_victor: bool, rewards_dropped: bool = True):
+        title_text = "YOU WON!"
+
         if player_victor:
             dropped_items = self.calculate_dropped_items()
-            print(f'---~~~### {colors.TITLE}YOU WON!{colors.END} ###~~~---')
+            if self.exit_loop:
+                title_text = "YOU ESCAPED!"
+            print(f'---~~~### {colors.TITLE}{title_text}{colors.END} ###~~~---')
             if self.gold_drop and rewards_dropped:
                 player_var_change(self.gold_drop)
             if dropped_items and rewards_dropped:
@@ -129,18 +134,21 @@ class battle:
             self.player_turn()
         while self.enemy['health'] >= 0 and config.player_health >= 0:
             self.enemy_turn()
-            if config.player_health <= 0:
+
+            if config.player_health <= 0 or self.enemy['health'] <= 0:
                 self.fight_end(False)
                 break
-            if self.enemy['health'] <= 0:
-                self.fight_end(True)
+            elif self.exit_loop:
+                self.fight_end(True, False)
                 break
+
             self.player_turn()
-            if config.player_health <= 0:
+
+            if config.player_health <= 0 or self.enemy['health'] <= 0:
                 self.fight_end(False)
                 break
-            if self.enemy['health'] <= 0:
-                self.fight_end(True)
+            elif self.exit_loop:
+                self.fight_end(True, False)
                 break
 
     def player_turn(self):
@@ -178,19 +186,18 @@ class battle:
         talk(f"Before {subject_fleeing} can even finish their sentence,")
 
         if self.calculate_flee(player_fleeing):
+            self.exit_loop = True
             if player_fleeing:
                 player_gained_exp('dexterity', 0.01, 0.05, False)
 
             talk(f'{subject_fleeing} runs off, leaving nothing, but dust in the air.\n')
-            self.fight_end(True, False)
         else:
             if player_fleeing:
                 talk(f'{self.enemy['display_name']} grabs you instantly and throws you to the ground.\n')
-                return
             else:
                 talk(f'You grab {subject_fleeing} by the throat and throw them to the ground.\n')
                 self.player_turn()
-                return
+        return
 
     def perform_attack(self, player_attacking: bool):
         if player_attacking:

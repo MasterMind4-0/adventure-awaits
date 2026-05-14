@@ -2,7 +2,7 @@ import colors
 import time
 import config
 import random
-from utils import talk, format_damage, death, player_gained_exp, display_inventory
+from utils import talk, format_damage, death, player_gained_exp, display_inventory, player_var_change
 
 class battle:
     def __init__(self, preset: str, player_initiative: bool = False, prevent_item_drops: bool = False, prevent_coin_drop: bool = False):
@@ -111,8 +111,9 @@ class battle:
             dropped_items = self.calculate_dropped_items()
             print(f'---~~~### {colors.TITLE}YOU WON!{colors.END} ###~~~---')
             if self.gold_drop and rewards_dropped:
-                talk(f'You gained {colors.GOLD}{self.gold_drop}{colors.END} coins')
+                player_var_change(self.gold_drop)
             if dropped_items and rewards_dropped:
+                player_var_change(items=rewards_dropped, print_message=False)
                 talk(f'You looted the body and found {colors.VALUE_ITEM}{dropped_items}{colors.END}')
         else:
             if self.lethal_fight:

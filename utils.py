@@ -25,12 +25,14 @@ def talk(text: str, custom_wait: bool = False, wait_time: int = 2):
     else:
         time.sleep(wait_time)
 
-def player_mc(choices: list, text: str = 'What should you do?',):
+def player_mc(choices: list, text: str = 'What should you do?', leave_option_text: str = 'Leave', leave_option: bool = True):
     # mc = multiple choice
 
     print()
     for choice in choices:
         print(f'{choices.index(choice) + 1}. {choice}')
+    if leave_option:
+        print(f'L. {leave_option_text}')
     print()
     
     player_selected_choice = input(f'{text}\n').strip()

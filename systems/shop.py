@@ -60,6 +60,8 @@ class shop:
             talk(f'{self.trader_formatted}: Yeah, come back when you got the money.')
             # Implement trading option if you don't have enough money
         else:
+            self.chosen_items.remove(item_dict_link['name'])
+
             player_var_change(coins=-item_dict_link['price'])
             player_var_change(items=item_dict_link['name'])
 

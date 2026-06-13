@@ -33,6 +33,12 @@ class shop:
 
         talk(f'{self.trader_formatted}: {random.choice(trader_intros)}')
         while True:
+            # If self.chosen_items is empty
+            if not self.chosen_items:
+                talk(f'{self.trader_formatted}: Well, you won\'t believe it but you cleared me of all my stock!')
+                talk(f'{self.trader_formatted}: I appreciate the business, until we see each other once again!')
+                break
+
             print(f'''
             ---~~~### {colors.TITLE}{self.shop_name}{colors.END} ###~~~---
             

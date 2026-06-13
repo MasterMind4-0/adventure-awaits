@@ -8,7 +8,7 @@ class shop:
     def __init__(self, pool_category: str, shop_name: str, trader_name: str = 'Trader', item_pool: list = None):
         self.shop_name = shop_name
         self.trader_name = trader_name
-        self.trader = format_name(self.trader_name)
+        self.trader_formatted = format_name(self.trader_name)
 
         match pool_category:
             case 'enemies':
@@ -22,6 +22,7 @@ class shop:
             self.item_pool = self.generate_random_item_pool()
     
     def shop_menu(self):
+
         trader_intros = [
             'What can I do you for?',
             'What will it be today?',
@@ -30,7 +31,7 @@ class shop:
             "I don't do sales."
         ]
 
-        talk(f'{self.trader}: {random.choice(trader_intros)}')
+        talk(f'{self.trader_formatted}: {random.choice(trader_intros)}')
         while True:
             print(f'''
             ---~~~### {colors.TITLE}{self.shop_name}{colors.END} ###~~~---
@@ -52,16 +53,17 @@ class shop:
     def purchased_item(self, choice):
         item_dict_link = config.entities[self.pool_category][self.chosen_items[choice]]
 
-        talk(f'{self.trader}: Ah! That\'s a good one!')
-        talk(f'{self.trader}: It\'ll be {item_dict_link['price']} coins.')
+        talk(f'{self.trader_formatted}: Ah! That\'s a good one!')
+        talk(f'{self.trader_formatted}: It\'ll be {item_dict_link['price']} coins.')
         if config.coin < item_dict_link['price']:
-            talk(f'{self.trader}: I\'d be happy to had it over, but it looks like your pockets aren\'t deep enough.')
+            talk(f"{config.name}: Um... I don\'t think I can actually afford that...")
+            talk(f'{self.trader_formatted}: Yeah, come back when you got the money.')
             # Implement trading option if you don't have enough money
         else:
             player_var_change(coins=-item_dict_link['price'])
             player_var_change(items=item_dict_link['name'])
 
-            talk(f'{self.trader}: Pleasure doing business!')
+            talk(f'{self.trader_formatted}: Pleasure doing business!')
         return
 
     def generate_random_item_pool(self):

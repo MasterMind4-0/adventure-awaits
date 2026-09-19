@@ -9,7 +9,8 @@
         "drops": {
             "dagger": 0.50,
             "hood": 0.25
-        }
+        },
+        "tags": []
     },
     "skeleton": {
         "name": "skeleton",
@@ -20,7 +21,18 @@
         "base_flee_chance": 0.10,
         "drops": {
             "bone_dagger": 0.75
-        }  
+        },
+        "tags": ["Dungeon", "Undead", "NoLanguage"]
+    },
+    "zombie": {
+        "name": "zombie",
+        "display_name": "Zombie",
+        "health": 10,
+        "weapon": "unarmed",
+        "armor": "no_armor",
+        "base_flee_chance": 0.10,
+        "drops": {},
+        "tags": ["Dungeon", "Undead", "NoLanguage"]
     },
     "goblin": {
         "name": "goblin",
@@ -31,7 +43,8 @@
         "base_flee_chance": 0.35,
         "drops": {
             "shortsword": 0.75
-        }
+        },
+        "tags": ["Dungeon", "Forest"]
     },
     "bear": {
         "name": "bear",
@@ -42,6 +55,27 @@
         "base_flee_chance": 0.10,
         "drops": {
             "raw_meat": 1
-        }
+        },
+        "tags": ["Forest", "Handless", "NoLanguage"]
+    },
+    "lone_wolf": {
+        "name": "lone_wolf",
+        "display_name": "Lone Wolf",
+        "health": 4,
+        "weapon": "longsword",
+        "armor": "natural_armor",
+        "base_flee_chance": 0.20,
+        "drops": {},
+        "tags": ["Forest", "Handless", "NoLanguage"]
+    },
+    "fox": {
+        "name": "fox",
+        "display_name": "Fox",
+        "health": 6,
+        "weapon": "shortsword",
+        "armor": "natural_armor",
+        "base_flee_chance": 0.55,
+        "drops": {},
+        "tags": ["Forest", "Handless", "NoLanguage"]
     }
 }

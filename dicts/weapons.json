@@ -1,4 +1,19 @@
 {
+    "unarmed": {
+        "name": "unarmed",
+        "display_name": "Unarmed",
+        "damage": {
+            "d4": 0,
+            "d6": 0,
+            "d10": 0,
+            "d12": 0,
+            "piercing": 0.00,
+            "add": 1
+        },
+        "price": 0,
+        "sellable": false,
+        "in_shop": false
+    },
     "shortsword": {
         "name": "shortsword",
         "display_name": "Shortsword",

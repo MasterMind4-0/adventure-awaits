@@ -28,12 +28,12 @@ class battle:
 
     def player_menu(self):
         while True:
-            weapon_name = f'{colors.EQUITABLE}{config.player_weapon['display_name']}{colors.END}'
+            weapon_name = f'{colors.EQUITABLE}{config.player_weapon["display_name"]}{colors.END}'
 
-            armor_name = f'{colors.EQUITABLE}{config.player_armor['display_name']}{colors.END}'
+            armor_name = f'{colors.EQUITABLE}{config.player_armor["display_name"]}{colors.END}'
 
             print(f'''
-                {colors.TITLE}Fighting {self.enemy['display_name']}!{colors.END}
+                {colors.TITLE}Fighting {self.enemy["display_name"]}!{colors.END}
 
             Health: {colors.HEALTH}{config.player_health}{colors.END}
 
@@ -59,9 +59,9 @@ class battle:
         
         print(f'\n{colors.TITLE}Your Health Potions:{colors.END}')
         for i, potion in enumerate(health_potions, 1):
-            display_name = config.entities['items'][potion]['display_name']
-            min_heal = config.entities['items'][potion]['min']
-            max_heal = config.entities['items'][potion]['max']
+            display_name = config.entities["items"][potion]["display_name"]
+            min_heal = config.entities["items"][potion]["min"]
+            max_heal = config.entities["items"][potion]["max"]
 
             print(f'{i}. {display_name}')
         
@@ -95,8 +95,8 @@ class battle:
         self.lethal_fight = lethal_fight
 
         entry_phrasels = [
-            f"{self.enemy['display_name']} looks in your eyes with pure rage.",
-            f"{self.enemy['display_name']} walks towards you, weapon in hand."
+            f'{self.enemy["display_name"]} looks in your eyes with pure rage.',
+            f'{self.enemy["display_name"]} walks towards you, ready for battle.'
         ]
 
         if custom_entry_phrase:
@@ -124,7 +124,7 @@ class battle:
             if self.lethal_fight:
                 death(self.enemy['display_name'])
             else:
-                talk(f'{self.enemy['display_name']} then stops, dusting their shoulders.')
+                talk(f'{self.enemy["display_name"]} then stops, dusting their shoulders.')
         print('---~~~################~~~---\n\n')
         return
 
@@ -132,21 +132,25 @@ class battle:
         if self.player_initiative:
             self.player_initiative = False
             self.player_turn()
-        while self.enemy['health'] >= 0 and config.player_health >= 0:
+        while self.enemy['health'] > 0 and config.player_health > 0:
             self.enemy_turn()
 
-            if config.player_health <= 0 or self.enemy['health'] <= 0:
+            if config.player_health <= 0:
                 self.fight_end(False)
                 break
+            elif self.enemy['health'] <= 0:
+                self.fight_end(True)
             elif self.exit_loop:
                 self.fight_end(True, False)
                 break
 
             self.player_turn()
 
-            if config.player_health <= 0 or self.enemy['health'] <= 0:
+            if config.player_health <= 0:
                 self.fight_end(False)
                 break
+            elif self.enemy['health'] <= 0:
+                self.fight_end(True)
             elif self.exit_loop:
                 self.fight_end(True, False)
                 break
@@ -182,8 +186,12 @@ class battle:
             subject_fleeing = self.enemy['display_name']
         
         talk(f'{subject_fleeing} suddenly cowers, and backs away slowly...')
-        talk(f'{subject_fleeing}: H-hey now, how about I just---')
-        talk(f"Before {subject_fleeing} can even finish their sentence,")
+        if "NoLanguage" in self.enemy["tags"]:
+            talk(f'{subject_fleeing} backs away, frightened.')
+            talk(f"Before {subject_fleeing} can even get a foot further,")
+        else:
+            talk(f'{subject_fleeing}: H-hey now, how about I just---')
+            talk(f"Before {subject_fleeing} can even finish their sentence,")
 
         if self.calculate_flee(player_fleeing):
             self.exit_loop = True
@@ -193,7 +201,7 @@ class battle:
             talk(f'{subject_fleeing} runs off, leaving nothing, but dust in the air.\n')
         else:
             if player_fleeing:
-                talk(f'{self.enemy['display_name']} grabs you instantly and throws you to the ground.\n')
+                talk(f'{self.enemy["display_name"]} grabs you instantly and throws you to the ground.\n')
             else:
                 talk(f'You grab {subject_fleeing} by the throat and throw them to the ground.\n')
                 self.player_turn()
@@ -201,25 +209,31 @@ class battle:
 
     def perform_attack(self, player_attacking: bool):
         if player_attacking:
-            talk(f'You attack with your {colors.EQUITABLE}{config.player_weapon['display_name']}{colors.END}')
+            talk(f'You attack with your {colors.EQUITABLE}{config.player_weapon["display_name"]}{colors.END}')
         else:
-            talk(f'{self.enemy['display_name']} swings their weapon at you.', True, 1)
+            if "Handless" in self.enemy["tags"]:
+                talk(f'{self.enemy["display_name"]} attacks you.')
+            else:
+                talk(f'{self.enemy["display_name"]} swings their weapon at you.', True, 1)
         if self.calculate_hit(player_attacking):
             if player_attacking:
                 player_gained_exp('strength', 0.0001, 0.001, False)
-                self.enemy['health'] -= self.calculate_damage(True)
-
-                talk(f'You clobber {self.enemy['display_name']}.', True, 1)
+                self.enemy['health'] -= self.calculate_damage(player_attacking)
+                talk(f'You clobber {self.enemy["display_name"]}.', True, 1)
+                
                 if config.dev_mode:
-                    print(f'{colors.DEV}Enemy health: {self.enemy['health']}{colors.END}')
+                    print(f'{colors.DEV}Enemy health: {self.enemy["health"]}{colors.END}')
             else:
-                config.player_health -= self.calculate_damage(False)
-                talk(f'{self.enemy['display_name']}\'s weapon thuds into you.', True, 1)
+                config.player_health -= self.calculate_damage(player_attacking)
+                if "Handless" in self.enemy["tags"]:
+                    talk(f'{self.enemy["display_name"]} hits you.')
+                else:
+                    talk(f'{self.enemy["display_name"]}\'s weapon thuds into you.', True, 1)
         else:
             if player_attacking:
                 talk(f'...But you miss!', True, 1)
             else:
-                talk(f'...But {self.enemy['display_name']} missed!', True, 1)
+                talk(f'...But {self.enemy["display_name"]} missed!', True, 1)
         return
 
     def calculate_damage(self, player_attacking: bool):

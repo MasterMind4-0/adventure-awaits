@@ -2,7 +2,7 @@ import config
 import colors
 import random
 import event.events_main as events
-from utils import talk, format_name, wait, player_gained_exp, player_var_change, player_mc
+from utils import talk, format_name, wait, player_gained_exp, player_var_change, player_mc, calculate_chance
 
 class tavern:
     def __init__(self, tavern_display_name: str | list):
@@ -47,7 +47,7 @@ class tavern:
 
     def entering_tavern(self):
         talk(f'You enter, the smell of ale-soaked bread crusts fill your nose.')
-        talk(f'{format_name('Bartender')}: Welcome to {self.tavern_display_name}!')
+        talk(f'{format_name("Bartender")}: Welcome to {self.tavern_display_name}!')
         self.tavern_hub()
     
     def tavern_hub(self):
@@ -55,7 +55,7 @@ class tavern:
             if self.player_leaving:
                 break
             choice = self.tavern_menu()
-
+            
             match choice:
                 case '1':
                     self.bartender_menu()
@@ -65,7 +65,7 @@ class tavern:
                     self.room_menu()
                 case '4':
                     self.gossip()
-                case '5':
+                case 'l':
                     self.player_leaving = True
                     break
         return
@@ -81,10 +81,10 @@ class tavern:
             2. Quest Board
             3. Rooms
             4. Gossip
-            5. Leave
+            L. Leave
             ''')
             choice = input()
-            if choice in ['1', '2', '3', '4', '5']:
+            if choice.lower() in ['1', '2', '3', '4', 'l']:
                 return choice
             else:
                 talk('Invalid answer. Try again.', True)
@@ -95,7 +95,7 @@ class tavern:
         self.rootdict_drinks = config.entities['drinks']
         self.rootdict_spec_drinks = config.entities['spec_drinks']
 
-        talk(f'{format_name('Bartender')}: {bartender_greeting}', True, 1.5)
+        talk(f'{format_name("Bartender")}: {bartender_greeting}', True, 1.5)
         while True:
             print(f'''
             ---~~~### {colors.TITLE}{self.tavern_display_name}{colors.END} ###~~~---
@@ -148,7 +148,7 @@ class tavern:
         
     def room_menu(self):
         if self.purchased_room:
-            talk(f'{format_name('Bartender')}: Mate, you\'ve already bought a room! Too much alcohol for you, surely.')
+            talk(f'{format_name("Bartender")}: Mate, you\'ve already bought a room! Too much alcohol for you, surely.')
         else:
             while True:
                 print(f'''
@@ -156,7 +156,7 @@ class tavern:
 
                 Coins: {colors.GOLD}{config.coin}{colors.END}
 
-                {format_name('Bartender')}: We\'ve only got a handful of rooms. Just for a measly {str(self.room_price)} coins. Quite reasonable.''')
+                {format_name("Bartender")}: We\'ve only got a handful of rooms. Just for a measly {str(self.room_price)} coins. Quite reasonable.''')
                 choice = input("Purchase a room? (fully healed) (Y/N)\n")
                 if choice.lower() == 'y':
                     self.purchased_room = True
@@ -165,7 +165,7 @@ class tavern:
                     talk('You spend the night, and awake refreshed.')
                     break
                 elif choice.lower() == 'n':
-                    talk(f'{format_name('Bartender')}: Shame, let me know if you change your mind later on.')
+                    talk(f'{format_name("Bartender")}: Shame, let me know if you change your mind later on.')
                     break
                 else:
                     talk('Invalid answer. Try again.', True)
@@ -184,14 +184,14 @@ class tavern:
             case _:
                 drink = self.rootdict_spec_drinks[self.tavern_special_drink]
         if config.coin < drink['price']:
-            talk(f'{format_name('Bartender')}: Hey there, this ain\'t a charity, you got to have enough money for this liquor here.')
+            talk(f'{format_name("Bartender")}: Hey there, this ain\'t a charity, you got to have enough money for this liquor here.')
             self.bartender_menu()
         
-        talk(f'{format_name('Bartender')}: {bartender_buydrink}')
+        talk(f'{format_name("Bartender")}: {bartender_buydrink}')
 
         talk(f'You take your drink, peering into the liquid that swirls around the glass.')
         talk(f'{format_name(config.name)}: Well, bottoms up, I suppose.')
-        talk(f'{format_name('Bartender')}: Bottoms up.', True, 1)
+        talk(f'{format_name("Bartender")}: Bottoms up.', True, 1)
 
         compared_value = random.random()
         drunk_chance = drink['drunk_effective'] - config.player_stats['constitution']
@@ -205,7 +205,7 @@ class tavern:
         if wasted:
             talk(f'Your head suddenly thumps.')
             talk(f'{format_name(config.name)}: That\'sssss goooood sssssstuuff! *hick*')
-            talk(f'{format_name('Bartender')}: Yeah, thanks ya\' drunk basta...')
+            talk(f'{format_name("Bartender")}: Yeah, thanks ya\' drunk basta...')
             talk(f'Your eye lids close and the world sleeps... For a moment.')
             self.alley_way()
             self.player_leaving = True
@@ -216,8 +216,60 @@ class tavern:
                 pass
             talk('You bring the glass back down, it thumps to the table.')
             talk(f'{format_name(config.name)}: That\'s good stuff.')
-            talk(f'{format_name('Bartender')}: Aye, care for more?')
+            talk(f'{format_name("Bartender")}: Aye, care for more?')
         return
 
     def alley_way(self):
-        wait()
+        talk('You awaken to find yourself in the back alley of the tavern.')
+        talk('Seems that you were so blacked out, the tavern keep dragged you out here with the trash.')
+        talk('You get up, wobbling.')
+        
+        if calculate_chance(0.65, 'constitution'): # 65% chance (unmodified, anyway) chance of throwing up.
+            talk('You suddenly lurch forward and involuntary tuck your stomach in.')
+            talk('You vomit all over yourself and the ground beneath you.')
+        elif calculate_chance(0.15):
+            unk = format_name('Unknown')
+            gang_member = format_name('Thug')
+            player_name = format_name(config.name)
+            
+            talk(f'{unk}: Hey, you there.')
+            talk('You gaze upward, seeing a shadowy figure standing in front of you.')
+            talk(f'{unk}: You unlucky enough to wind up out here?')
+            talk(f'{player_name}: Yeah, looks as if th--')
+            talk('The fellow suddenly punches your gut and pins you to a wall. You realize what your dealing with now.')
+            talk(f'{gang_member}: So, so unlucky.')
+            talk(f'{gang_member}: Now, now. Just hand over what you got.')
+            
+            choice = player_mc(['Hand over all your gold', 'Hand over some gold', 'fight'], leave_option=False)
+            
+            match choice:
+                case '0':
+                    talk(f'{player_name}: Fine! Here take it all.')
+                    talk('The thug\'s rough face smoothens as he witnesses the shiny pieces coming out of your pocket.')
+                    if calculate_chance(0.15, 'dexterity'):
+                        talk('The thug closes his eyes for moment with a smile, as if he was thinking of all he could do with the gold.')
+                        choice = player_mc(['Run off', 'Punch his face and run'], 'You recognize this as an opportunity, should you?', leave_option=False)
+                        match choice:
+                            case '0':
+                                talk('You slowly shuffle away with your front towards him, you slowly turn around. Soon enough you\'re sprinting away.')
+                            case '1':
+                                talk('You take you hand full of gold and punch the thug\'s face. You stumbles back in surprise and agony.')
+                                talk('You quickly rush off and take a corner. You hear his curses as you dash off.')
+                    player_var_change(coins=(-1 * config.coins))
+                    talk('You hand him all that you had, he mockingly thanks you and struts into the unknown shadows of the alley.')
+                case '1':
+                    choice = player_mc(['5 gold', '15 gold', '30 gold', '50 gold'], 'How much should you hand the thug?', leave_option=False)
+                    match choice:
+                        case '0':
+                            gold_handed_over = -5
+                        case '1':
+                            gold_handed_over = -15
+                        case '2':
+                            gold_handed_over = -30
+                        case '3':
+                            gold_handed_over = -50
+                    player_var_change(coins=gold_handed_over)
+                    talk(f'You hand him the amount. Flinching as he inspects you and the gold you offered.')
+                    talk(f'{gang_member}: ...', custom_wait=3)
+                    if calculate_chance((0.55 + (gold_handed_over / 100)), 'charisma'):
+                        talk(f'{gang_member}: ...')

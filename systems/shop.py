@@ -28,7 +28,7 @@ class shop:
             'What will it be today?',
             'Anything catching your eye?',
             "Don't bargin, I am not going to give in.",
-            "I don't do sales."
+            "I don't do discounts."
         ]
 
         talk(f'{self.trader_formatted}: {random.choice(trader_intros)}')
@@ -60,7 +60,7 @@ class shop:
         item_dict_link = config.entities[self.pool_category][self.chosen_items[choice]]
 
         talk(f'{self.trader_formatted}: Ah! That\'s a good one!')
-        talk(f'{self.trader_formatted}: It\'ll be {item_dict_link['price']} coins.')
+        talk(f'{self.trader_formatted}: It\'ll be {item_dict_link["price"]} coins.')
         if config.coin < item_dict_link['price']:
             talk(f"{config.name}: Um... I don\'t think I can actually afford that...")
             talk(f'{self.trader_formatted}: Yeah, come back when you got the money.')
@@ -89,6 +89,6 @@ class shop:
         printed_output = ""
 
         for item in self.chosen_items:
-            printed_output += f'{self.chosen_items.index(item) + 1}. {config.entities[self.pool_category][item]['display_name']} ({config.entities[self.pool_category][item]['price']})\n\t    '
+            printed_output += f'{self.chosen_items.index(item) + 1}. {config.entities[self.pool_category][item]["display_name"]} ({config.entities[self.pool_category][item]["price"]})\n\t    '
 
         return printed_output

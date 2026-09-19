@@ -7,6 +7,10 @@ from systems.battle import battle
 from systems.tavern import tavern
 from utils import talk, wait, display_inventory
 
+last_event = None
+
+
+
 print('''
 ------------------------------------------------------------------------------------------------------------
    _____       .___                    __                            _____                 .__  __          
@@ -69,6 +73,17 @@ def change_equipment():
             talk(f'{to_be_swapped} isn\'t in your inventory!')
             break
 
+def get_random_event():
+    global last_event
+    event_list = events.eventsls
+
+    chosen_event = random.choice(event_list)
+    while chosen_event == last_event:
+        chosen_event = random.choice(event_list)
+
+    last_event = chosen_event
+    return chosen_event
+
 while True:
     print(f'''
     ---~~~### {colors.TITLE}{config.name}{colors.END} ###~~~---
@@ -89,6 +104,6 @@ while True:
     match choice:
         case '1':
             wait()
-            random.choice(events.eventsls)()
+            get_random_event()()
         case '2':
             change_equipment()

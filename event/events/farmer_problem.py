@@ -43,18 +43,18 @@ def farmer_problem():
             player_var_change(coins=random.randint(5, 12))
         elif choice == '1':
             talk(f'{player_name}: Woah! Easy there.')
-            talk('The bear seems to stare at you,')
+            talk(f'The {creature.capitalize()} seems to stare at you,')
             talk('You reach out your hand.')
             if calculate_chance(0.3, 'intelligence'):
                 talk(f'The {creature.capitalize()} cautiously walks towards you.')
                 talk('It nozzles its nose against your hand.')
-                talk('In the morning, you show the farmer how to take care of the bear.')
+                talk(f'In the morning, you show the farmer how to take care of the {creature.capitalize()}.')
                 talk('You even train it to pick the berries for the farmer.')
                 talk('As the farmer gives you your award, you leave to continue your travels.')
                 player_var_change(coins=random.randint(5, 12))
             else:
                 talk(f'As you reach out, however, the {creature.capitalize()} turns aggresive and lashes out at you.')
-                battle('bear', prevent_coin_drop=True).fight_start()
+                battle(creature, prevent_coin_drop=True).fight_start()
                 talk("In the morning, the farmer is overjoyed to hear you've gotten rid of the pest problem.")
                 talk('He gives you his gold and thanks you for your work.')
                 player_var_change(coins=random.randint(5, 12))

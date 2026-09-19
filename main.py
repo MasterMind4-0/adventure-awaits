@@ -81,6 +81,8 @@ def get_random_event():
     last_event = chosen_event
     return chosen_event
 
+
+# Main gameplay loop
 while True:
     print(f'''
     ---~~~### {colors.TITLE}{config.name}{colors.END} ###~~~---

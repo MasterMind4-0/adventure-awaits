@@ -144,7 +144,7 @@ class tavern:
             for quest in selected_quests:
                 if choice == str(selected_quests.index(quest)):
                     print('\n')
-                    events.eventsdict[quest]['call']()
+                    events.eventsdict[quest]['call'](from_quest=True)
         
     def room_menu(self):
         if self.purchased_room:

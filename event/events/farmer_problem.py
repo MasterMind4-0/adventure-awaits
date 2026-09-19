@@ -14,12 +14,15 @@ possible_creature = [
     "fox"
 ]
 
-def farmer_problem():
+def farmer_problem(from_quest = False):
     creature = random.choice(possible_creature)
     Farmer = format_name('Farmer')
     player_name = format_name(config.name)
 
-    talk('A farmer comes, begging for your help,')
+    if from_quest:
+        talk(f'{Farmer}: Thank the Gods someone came!')
+    else:
+        talk('A farmer comes, begging for your help,')
     talk(f"{Farmer}: Please! Every night something eats my crops! You look like a charming, capable person; I beg, everyone has rejected, but can you help me?")
     choice = player_mc(['Yes', "No"], 'Should you help the man?', leave_option=False)
     if choice == '0':

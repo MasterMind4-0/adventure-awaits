@@ -1,0 +1,21 @@
+{
+  "reward": {
+    "chest": {
+      "reward_gold": [5, 100],
+      "reward_item": [],
+      "enemies_class": ["skeleton_cl", "zombie_cl"]
+    },
+    "fountain_of_youth": {
+      "reward_gold": [],
+      "reward_item": ["potion_of_healing"],
+      "enemies_class": ["raider_cl"]
+    }
+  },
+  "non_reward": {
+    "empty": {
+      "reward_gold": [],
+      "reward_item": [],
+      "enemies_class": ["skeleton_cl", "zombie_cl"]
+    }
+  }
+}

@@ -3,7 +3,7 @@ import config
 import random
 from systems.tavern import tavern
 from systems.battle import battle
-from utils import talk, format_name, wait, calculate_chance, player_var_change, player_mc
+from utils import talk, format_name, wait, calculate_chance, player_inventory_change, player_mc
 
 tags = {
     'is_quest': False
@@ -16,7 +16,7 @@ def undead_attack():
     talk('You come across a dead body, its skeleton showing through the rotton flesh.')
     choice = player_mc(['Loot the body', 'Bury the body'], leave_option_text='Walk away')
     if choice == '0':
-        player_var_change(random.randint(6, 14))
+        player_inventory_change(random.randint(6, 14))
         if calculate_chance(.6):
             talk('After you loot the body, it suddenly animates.')
             battle(chosen_enemy).fight_start('It screeches and lunges at you.')

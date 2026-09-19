@@ -2,7 +2,7 @@ import config
 import colors
 import random
 import event.events_main as events
-from utils import talk, format_name, wait, player_gained_exp, player_var_change, player_mc, calculate_chance
+from utils import talk, format_name, wait, player_gained_exp, player_inventory_change, player_mc, calculate_chance
 
 class tavern:
     def __init__(self, tavern_display_name: str | list):
@@ -161,7 +161,7 @@ class tavern:
                 if choice.lower() == 'y':
                     self.purchased_room = True
                     config.player_health = config.player_max_health
-                    player_var_change(-self.room_price)
+                    player_inventory_change(-self.room_price)
                     talk('You spend the night, and awake refreshed.')
                     break
                 elif choice.lower() == 'n':
@@ -255,7 +255,7 @@ class tavern:
                             case '1':
                                 talk('You take you hand full of gold and punch the thug\'s face. You stumbles back in surprise and agony.')
                                 talk('You quickly rush off and take a corner. You hear his curses as you dash off.')
-                    player_var_change(coins=(-1 * config.coins))
+                    player_inventory_change(coins=(-1 * config.coins))
                     talk('You hand him all that you had, he mockingly thanks you and struts into the unknown shadows of the alley.')
                 case '1':
                     choice = player_mc(['5 gold', '15 gold', '30 gold', '50 gold'], 'How much should you hand the thug?', leave_option=False)
@@ -268,7 +268,7 @@ class tavern:
                             gold_handed_over = -30
                         case '3':
                             gold_handed_over = -50
-                    player_var_change(coins=gold_handed_over)
+                    player_inventory_change(coins=gold_handed_over)
                     talk(f'You hand him the amount. Flinching as he inspects you and the gold you offered.')
                     talk(f'{gang_member}: ...', custom_wait=3)
                     if calculate_chance((0.55 + (gold_handed_over / 100)), 'charisma'):

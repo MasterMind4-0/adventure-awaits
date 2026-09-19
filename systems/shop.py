@@ -2,7 +2,7 @@ import colors
 import time
 import config
 import random
-from utils import talk, format_name, display_inventory, player_var_change
+from utils import talk, format_name, display_inventory, player_inventory_change
 
 class shop:
     def __init__(self, pool_category: str, shop_name: str, trader_name: str = 'Trader', item_pool: list = None):
@@ -68,8 +68,8 @@ class shop:
         else:
             self.chosen_items.remove(item_dict_link['name'])
 
-            player_var_change(coins=-item_dict_link['price'])
-            player_var_change(items=item_dict_link['name'])
+            player_inventory_change(coins=-item_dict_link['price'])
+            player_inventory_change(items=item_dict_link['name'])
 
             talk(f'{self.trader_formatted}: Pleasure doing business!')
         return

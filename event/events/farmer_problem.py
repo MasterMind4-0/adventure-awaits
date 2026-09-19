@@ -3,7 +3,7 @@ import config
 import random
 from systems.tavern import tavern
 from systems.battle import battle
-from utils import talk, format_name, wait, calculate_chance, player_var_change, player_mc
+from utils import talk, format_name, wait, calculate_chance, player_inventory_change, player_mc
 
 tags = {
     'is_quest': True
@@ -40,7 +40,7 @@ def farmer_problem():
             talk('You finish the job and head to the local inn.')
             talk('In the morn\', you visit the farmer to tell him the news.')
             talk('He\'s overjoyed and hands you a pouch of gold.')
-            player_var_change(coins=random.randint(5, 12))
+            player_inventory_change(coins=random.randint(5, 12))
         elif choice == '1':
             talk(f'{player_name}: Woah! Easy there.')
             talk(f'The {creature.capitalize()} seems to stare at you,')
@@ -51,13 +51,13 @@ def farmer_problem():
                 talk(f'In the morning, you show the farmer how to take care of the {creature.capitalize()}.')
                 talk('You even train it to pick the berries for the farmer.')
                 talk('As the farmer gives you your award, you leave to continue your travels.')
-                player_var_change(coins=random.randint(5, 12))
+                player_inventory_change(coins=random.randint(5, 12))
             else:
                 talk(f'As you reach out, however, the {creature.capitalize()} turns aggresive and lashes out at you.')
                 battle(creature, prevent_coin_drop=True).fight_start()
                 talk("In the morning, the farmer is overjoyed to hear you've gotten rid of the pest problem.")
                 talk('He gives you his gold and thanks you for your work.')
-                player_var_change(coins=random.randint(5, 12))
+                player_inventory_change(coins=random.randint(5, 12))
         else:
             talk(f'You look at the {creature.capitalize()}, and decide on leaving it be.')
             talk('You slip away under the cover of the night.')

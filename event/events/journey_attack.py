@@ -3,7 +3,7 @@ import config
 import random
 from systems.tavern import tavern
 from systems.battle import battle
-from utils import talk, format_name, wait, calculate_chance, player_var_change, player_mc
+from utils import talk, format_name, wait, calculate_chance, player_inventory_change, player_mc
 
 tags = {
     'is_quest': False

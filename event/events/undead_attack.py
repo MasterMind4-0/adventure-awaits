@@ -8,15 +8,18 @@ from utils import talk, format_name, wait, calculate_chance, player_var_change, 
 tags = {
     'is_quest': False
 }
+for enemy in config.entities['enemies'].keys():
+    if 'Undead' in config.entities['enemies'][enemy]['tags']:
+        chosen_enemy = enemy
 
-def skeleton_attack():
+def undead_attack():
     talk('You come across a dead body, its skeleton showing through the rotton flesh.')
     choice = player_mc(['Loot the body', 'Bury the body'], leave_option_text='Walk away')
     if choice == '0':
         player_var_change(random.randint(6, 14))
         if calculate_chance(.6):
-            talk('After you loot the body, it suddenly animates as you come near.')
-            battle('Skeleton').fight_start('It screeches and lunges at you.')
+            talk('After you loot the body, it suddenly animates.')
+            battle(chosen_enemy).fight_start('It screeches and lunges at you.')
             talk('You wipe the sweat off your brow.')
             talk('You also loot the body and find a couple coins.')
         else:
@@ -24,7 +27,7 @@ def skeleton_attack():
     elif choice == '1':
         if calculate_chance(.4):
             talk('The body animates as you come near,')
-            battle('skeleton').fight_start('It screeches and lunges at you.')
+            battle(chosen_enemy).fight_start('It screeches and lunges at you.')
             talk('Once you kill the undead. You bury the body.')
             talk('You wipe the sweat off your brow as you leave.')
         else:

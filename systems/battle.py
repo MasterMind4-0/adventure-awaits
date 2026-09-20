@@ -113,7 +113,7 @@ class battle:
         if player_victor:
             dropped_items = self.calculate_dropped_items()
             if self.exit_loop:
-                title_text = "YOU ESCAPED!"
+                title_text = "ESCAPED!"
             print(f'---~~~### {colors.TITLE}{title_text}{colors.END} ###~~~---')
             if self.gold_drop and rewards_dropped:
                 player_inventory_change(self.gold_drop)

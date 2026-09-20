@@ -54,7 +54,8 @@ class shop:
             choice = input()
             if choice.lower() == 'l':
                 break
-            self.purchased_item(int(choice) - 1)
+            if isinstance(choice, int):
+                self.purchased_item(int(choice) - 1)
     
     def purchased_item(self, choice):
         item_dict_link = config.entities[self.pool_category][self.chosen_items[choice]]

@@ -5,7 +5,7 @@ import event.events_main as events
 from utils import talk, format_name, wait, player_gained_exp, player_inventory_change, player_mc, calculate_chance
 
 class tavern:
-    def __init__(self, tavern_display_name: str | list):
+    def __init__(self, tavern_display_name: str | list = ''):
         self.player_leaving = False
         self.bartender_greetingls = [
             'How are you doing today?',
@@ -25,6 +25,13 @@ class tavern:
             "Hey! You didn't vomit on me!",
             "Be sure to head my way when your head clears again."
         ]
+        if tavern_display_name:
+            if isinstance(tavern_display_name, list):
+                self.tavern_display_name = random.choice(tavern_display_name)
+            else:
+                self.tavern_display_name = tavern_display_name
+        else:
+            self.tavern_display_name = random.choice(config.entities['tavern_names'])
 
         # Tavern drinks
         drinksls = list(config.entities['drinks'].keys())
@@ -39,11 +46,6 @@ class tavern:
 
         # Quest mechanic
         self.selected_quests = []
-        
-        if isinstance(tavern_display_name, list):
-            self.tavern_display_name = random.choice(tavern_display_name)
-        else:
-            self.tavern_display_name = tavern_display_name
 
     def entering_tavern(self):
         talk(f'You enter, the smell of ale-soaked bread crusts fill your nose.')

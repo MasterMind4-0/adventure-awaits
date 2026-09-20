@@ -32,6 +32,10 @@ if config.name.lower() != 'dev':
 talk(f'{config.name} is quite a good one.')
 
 def change_equipment():
+    if not config.inventory:
+        talk('You\'re inventory is empty!')
+        return
+    
     while True:
         if config.player_health > config.player_max_health:
             config.player_health = config.player_max_health

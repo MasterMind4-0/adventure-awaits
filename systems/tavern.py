@@ -38,7 +38,7 @@ class tavern:
         self.purchased_room = False
 
         # Quest mechanic
-        self.quest_generated = False
+        self.selected_quests = []
         
         if isinstance(tavern_display_name, list):
             self.tavern_display_name = random.choice(tavern_display_name)
@@ -123,9 +123,8 @@ class tavern:
 
     def quest_board_menu(self):
         # Generate quests if not already
-        if not self.quest_generated:
+        if not self.selected_quests:
             viable_quests = []
-            self.quest_generated = True
             #amount_of_possible_quests = random.randint(1, 4)
             amount_of_possible_quests = 1
 
@@ -134,15 +133,15 @@ class tavern:
                     viable_quests.append(quest)
                     if config.dev_mode:
                         print(f'{colors.DEV}Viable quest discovered: {quest}{colors.END}')
-            selected_quests = random.sample(viable_quests, k=amount_of_possible_quests)
+            self.selected_quests = random.sample(viable_quests, k=amount_of_possible_quests)
 
-        choice = player_mc(selected_quests, 'Which quest?')
+        choice = player_mc(self.selected_quests, 'Which quest?')
 
         if choice == 'l':
             return
         else:
-            for quest in selected_quests:
-                if choice == str(selected_quests.index(quest)):
+            for quest in self.selected_quests:
+                if choice == str(self.selected_quests.index(quest)):
                     print('\n')
                     events.eventsdict[quest]['call'](from_quest=True)
         

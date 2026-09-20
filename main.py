@@ -7,7 +7,7 @@ from systems.battle import battle
 from systems.tavern import tavern
 from utils import talk, wait, display_inventory, player_mc
 
-last_event = None
+event_history = []
 
 
 
@@ -74,16 +74,23 @@ def change_equipment():
             talk(f'{to_be_swapped} isn\'t in your inventory!')
             break
 
-def get_random_event():
-    global last_event
+def get_random_event(allowance=1):
+    global last_events
     event_list = events.eventsls
+    allowance = max(0, int(allowance))
 
-    chosen_event = random.choice(event_list)
-    while chosen_event == last_event:
+    while True:
         chosen_event = random.choice(event_list)
+        if allowance:
+            recent_events = event_history[-allowance:]
+        else:
+            recent_events = []
 
-    last_event = chosen_event
-    return chosen_event
+        if chosen_event not in recent_events:
+            event_history.append(chosen_event)
+            if allowance and len(event_history) > allowance:
+                event_history.pop(0)
+            return chosen_event
 
 
 # Main gameplay loop
@@ -107,6 +114,6 @@ while True:
     match choice:
         case '1':
             wait()
-            get_random_event()()
+            get_random_event(3)()
         case '2':
             change_equipment()

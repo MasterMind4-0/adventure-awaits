@@ -6,7 +6,8 @@ from systems.battle import battle
 from utils import talk, format_name, wait, calculate_chance, player_inventory_change
 
 tags = {
-    'is_quest': False
+    'is_quest': False,
+    'natural': True
 }
 
 def visiting_tavern():   

@@ -75,12 +75,17 @@ def change_equipment():
             break
 
 def get_random_event(allowance=1):
-    global last_events
-    event_list = events.eventsls
+    global event_history
+    event_list = []
+    for event in events.eventsdict.keys():
+        if events.eventsdict[event]['tags']['natural']:
+            event_list.append(event)
+            if config.dev_mode:
+                print(f'{colors.DEV}Viable events discovered: {event}{colors.END}')
     allowance = max(0, int(allowance))
 
     while True:
-        chosen_event = random.choice(event_list)
+        chosen_event = events.eventsdict[random.choice(event_list)]['call']
         if allowance:
             recent_events = event_history[-allowance:]
         else:

@@ -6,7 +6,8 @@ from systems.battle import battle
 from utils import talk, format_name, wait, calculate_chance, player_inventory_change, player_mc
 
 tags = {
-    'is_quest': True
+    'is_quest': True,
+    'natural': True
 }
 
 possible_creature = [

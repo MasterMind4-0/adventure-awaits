@@ -6,7 +6,8 @@ from systems.battle import battle
 from utils import talk, format_name, wait, calculate_chance, player_inventory_change, player_mc
 
 tags = {
-    'is_quest': False
+    'is_quest': False,
+    'natural': True
 }
 possible_attackers = []
 for enemy in config.entities['enemies'].keys():

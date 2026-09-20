@@ -114,6 +114,6 @@ while True:
     match choice:
         case '1':
             wait()
-            get_random_event(3)()
+            get_random_event(4)()
         case '2':
             change_equipment()

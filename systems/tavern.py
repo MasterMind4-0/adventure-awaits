@@ -117,7 +117,7 @@ class tavern:
             if choice.lower() in ['1', '2', '3', 'spec']:
                 self.purchased_drink(choice)
             elif choice.lower() == 'l':
-                return
+                break
             else:
                 talk('Invalid answer. Try again.', True)
 

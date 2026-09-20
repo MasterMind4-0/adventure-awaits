@@ -89,6 +89,6 @@ class shop:
         printed_output = ""
 
         for item in self.chosen_items:
-            printed_output += f'{self.chosen_items.index(item) + 1}. {config.entities[self.pool_category][item]["display_name"]} ({config.entities[self.pool_category][item]["price"]})\n\t    '
+            printed_output += f'{self.chosen_items.index(item) + 1}. {config.entities[self.pool_category][item]["display_name"]} ({colors.GOLD}{config.entities[self.pool_category][item]["price"]}{colors.END})\n\t    '
 
         return printed_output

@@ -73,7 +73,7 @@ class tavern:
     def tavern_menu(self):
         while True:
             print(f'''
-            {colors.TITLE}{self.tavern_display_name}{colors.END}
+            ---~~~### {colors.TITLE}{self.tavern_display_name}{colors.END} ###~~~---
 
             Coin: {colors.GOLD}{config.coin}{colors.END}
 
@@ -98,7 +98,7 @@ class tavern:
         talk(f'{format_name("Bartender")}: {bartender_greeting}', True, 1.5)
         while True:
             print(f'''
-            ---~~~### {colors.TITLE}{self.tavern_display_name}{colors.END} ###~~~---
+            ---~~~### {colors.TITLE}{self.tavern_display_name} Menu{colors.END} ###~~~---
 
             Coins: {colors.GOLD}{config.coin}{colors.END}
 

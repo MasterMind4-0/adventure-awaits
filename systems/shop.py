@@ -64,7 +64,7 @@ class shop:
             choice = input()
             if choice.lower() == 'l':
                 break
-            elif choice.lower() == 's':
+            elif choice.lower() == 's' and self.shop_buys:
                 self.sell_menu()
             elif isinstance(choice, int):
                 self.purchased_item(int(choice) - 1)

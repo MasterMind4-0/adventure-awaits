@@ -140,6 +140,7 @@ class battle:
                 break
             elif self.enemy['health'] <= 0:
                 self.fight_end(True)
+                break
             elif self.exit_loop:
                 self.fight_end(True, False)
                 break
@@ -151,6 +152,7 @@ class battle:
                 break
             elif self.enemy['health'] <= 0:
                 self.fight_end(True)
+                break
             elif self.exit_loop:
                 self.fight_end(True, False)
                 break
@@ -204,7 +206,6 @@ class battle:
                 talk(f'{self.enemy["display_name"]} grabs you instantly and throws you to the ground.\n')
             else:
                 talk(f'You grab {subject_fleeing} by the throat and throw them to the ground.\n')
-                self.player_turn()
         return
 
     def perform_attack(self, player_attacking: bool):

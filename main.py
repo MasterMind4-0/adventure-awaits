@@ -24,7 +24,7 @@ print('''
 
 config.name = input('What is your character\'s name?\n')
 if config.name.lower() != 'dev':
-    config.coin = 0
+    config.coin = 5
     config.inventory = []
     config.player_armor = config.entities['armors']['no_armor']
     config.player_weapon = config.entities['weapons']['shortsword']

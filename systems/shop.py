@@ -32,7 +32,15 @@ class shop:
             "I don't do discounts."
         ]
 
-        talk(f'{self.trader_formatted}: {random.choice(trader_intros)}')
+        intro = random.choice(trader_intros)
+        selling = ''
+
+        if self.shop_buys:
+            selling = 'S for selling'
+            intro = 'Tell you what, I\'ll be willing to buy what you got there.'
+
+
+        talk(f'{self.trader_formatted}: {intro}')
         while True:
             # If self.chosen_items is empty
             if not self.chosen_items:
@@ -50,13 +58,48 @@ class shop:
             Inventory:
                 {display_inventory()}
 
+            {selling}
             L for leaving
             ''')
             choice = input()
             if choice.lower() == 'l':
                 break
-            if isinstance(choice, int):
+            elif choice.lower() == 's':
+                self.sell_menu()
+            elif isinstance(choice, int):
                 self.purchased_item(int(choice) - 1)
+
+    def sell_menu(self):
+        inventory_items = []
+        for item in config.inventory:
+            for category, items in config.entities.items():
+                if item in items:
+                    inventory_items.append((category, item, items[item]))
+                    break
+
+        if not inventory_items:
+            talk(f'{self.trader_formatted}: Well, it seems you can\'t sell me anything.')
+            return
+
+        for index, (_, _, item_data) in enumerate(inventory_items, start=1):
+            sell_price = item_data['price'] // 2
+            print(f'{index}. {item_data["display_name"]} ({colors.GOLD}{sell_price}{colors.END})')
+
+        choice = input('Choose an item to sell, or L to leave:\n')
+        if choice.lower() == 'l':
+            return
+
+        try:
+            selected_index = int(choice) - 1
+            _, item, item_data = inventory_items[selected_index]
+        except (ValueError, IndexError):
+            talk(f'{self.trader_formatted}: Well, it doesn\'t look like you\'ve got that item.')
+            return
+
+        sell_price = item_data['price'] // 2
+        config.inventory.remove(item)
+        player_inventory_change(sell_price)
+        talk(f'{self.trader_formatted}: Pleasure doing business!')
     
     def purchased_item(self, choice):
         item_dict_link = config.entities[self.pool_category][self.chosen_items[choice]]

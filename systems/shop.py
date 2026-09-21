@@ -9,6 +9,7 @@ class shop:
         self.shop_name = shop_name
         self.trader_name = trader_name
         self.trader_formatted = format_name(self.trader_name)
+        self.shop_buys = bool(random.getrandbits(1))
 
         match pool_category:
             case 'enemies':

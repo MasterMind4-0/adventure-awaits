@@ -41,7 +41,7 @@ class battle:
             Armor: {armor_name}
 
             1. Attack (1 turn)
-            2. Using healing (1 turn)
+            2. Using potion (1 turn)
             3. Skip (1 turn)
             4. Flee
             ''')
@@ -49,7 +49,7 @@ class battle:
             if action in ['1', '2', '3', '4']:
                 return action
             talk('Invalid answer. Try again.', True)
-
+    
     def healing_menu(self):
         health_potions = [item for item in config.inventory if 'health_potion' in item]
         
@@ -59,9 +59,9 @@ class battle:
         
         print(f'\n{colors.TITLE}Your Health Potions:{colors.END}')
         for i, potion in enumerate(health_potions, 1):
-            display_name = config.entities["items"][potion]["display_name"]
-            min_heal = config.entities["items"][potion]["min"]
-            max_heal = config.entities["items"][potion]["max"]
+            display_name = config.entities["potions"][potion]["display_name"]
+            min_heal = config.entities["potions"][potion]["min"]
+            max_heal = config.entities["potions"][potion]["max"]
 
             print(f'{i}. {display_name}')
         
@@ -81,7 +81,7 @@ class battle:
             return
         
         selected_potion = health_potions[choice_idx - 1]
-        potion_data = config.entities['items'][selected_potion]
+        potion_data = config.entities['potions'][selected_potion]
         heal_amount = random.randint(potion_data['min'], potion_data['max'])
         old_health = config.player_health
         config.player_health += heal_amount

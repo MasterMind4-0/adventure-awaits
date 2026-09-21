@@ -97,7 +97,7 @@ class shop:
             return
 
         sell_price = item_data['price'] // 2
-        config.inventory.remove(item)
+        player_inventory_change(items=(item, True))
         player_inventory_change(sell_price)
         talk(f'{self.trader_formatted}: Pleasure doing business!')
     

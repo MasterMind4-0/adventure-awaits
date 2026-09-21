@@ -93,7 +93,7 @@ def death(death_by: str = ""):
     print(f"---~~~### {colors.HEALTH}{colors.TITLE}YOU DIED{by}{colors.END} ###~~~---")
     exit()
 
-def player_inventory_change(coins: int = 0, items = None, print_message: bool = True):
+def player_inventory_change(coins: int = 0, items: tuple = None, print_message: bool = True):
     coins = round(coins)
 
     if coins:
@@ -106,9 +106,15 @@ def player_inventory_change(coins: int = 0, items = None, print_message: bool = 
             if print_message:
                 talk(f'You {colors.TITLE}gained{colors.END} {colors.GOLD}{coins}{colors.END} coins!')
     if items:
-        config.inventory.append(items)
-        if print_message:
-            talk(f'You {colors.TITLE}gained{colors.END} {colors.VALUE_ITEM}{items}{colors.END}!')
+        item, remove = items
+        if remove:
+            config.inventory.remove(item)
+            if print_message:
+                talk(f'You {colors.TITLE}lost{colors.END} {colors.VALUE_ITEM}{item.replace('_', ' ').capitalize()}{colors.END}!')
+        else:
+            config.inventory.append(item)
+            if print_message:
+                talk(f'You {colors.TITLE}gained{colors.END} {colors.VALUE_ITEM}{item.replace('_', ' ').capitalize()}{colors.END}!')
 
 def player_gained_exp(exp_type: str, exp_amount_min: int | float, exp_amount_max: int | float, print_message: bool):
     exp_var = config.player_stats[exp_type] 
